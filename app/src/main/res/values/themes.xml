@@ -1,0 +1,24 @@
+<resources>
+    <style name="Base.Theme.CashBox" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/sky_blue</item>
+        <item name="colorControlNormal">@color/blue</item>
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textColorPrimary">@color/light_grey</item>
+        <item name="android:textColorHint">@color/light_grey</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="CustomBottomNavTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="CustomFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="fabCustomSize">64dp</item>
+        <item name="backgroundTint">@color/light_blue</item>
+        <item name="srcCompat">@drawable/ic_add</item>
+        <item name="tint">@color/blue</item>
+        <item name="maxImageSize">40dp</item>
+    </style>
+</resources>
