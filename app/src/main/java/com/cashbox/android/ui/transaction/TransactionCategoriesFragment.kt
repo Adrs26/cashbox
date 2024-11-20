@@ -14,8 +14,8 @@ import com.cashbox.android.databinding.FragmentTransactionCategoriesBinding
 
 class TransactionCategoriesFragment : Fragment(R.layout.fragment_transaction_categories) {
     private val binding by viewBinding(FragmentTransactionCategoriesBinding::bind)
-    private val transactionViewModel by lazy {
-        ViewModelProvider(requireActivity())[TransactionViewModel::class.java]
+    private val addTransactionViewModel by lazy {
+        ViewModelProvider(requireActivity())[AddTransactionViewModel::class.java]
     }
     private lateinit var transactionCategoriesAdapter: TransactionCategoriesAdapter
     private var transactionCategories = listOf<String>()
@@ -49,7 +49,7 @@ class TransactionCategoriesFragment : Fragment(R.layout.fragment_transaction_cat
             object : TransactionCategoriesAdapter.OnItemClickListener {
                 override fun onItemClick(transactionCategory: String) {
                     findNavController().popBackStack()
-                    transactionViewModel.setTransactionCategory(transactionCategory)
+                    addTransactionViewModel.setTransactionCategory(transactionCategory)
                 }
             }
         )
@@ -58,7 +58,7 @@ class TransactionCategoriesFragment : Fragment(R.layout.fragment_transaction_cat
     }
 
     private fun setupObservers() {
-        transactionViewModel.transactionType.observe(viewLifecycleOwner) { transactionType ->
+        addTransactionViewModel.transactionType.observe(viewLifecycleOwner) { transactionType ->
             if (transactionType == resources.getString(R.string.income)) {
                 transactionCategories = resources.getStringArray(R.array.income_categories).toList()
                 transactionCategoriesAdapter.submitList(transactionCategories)

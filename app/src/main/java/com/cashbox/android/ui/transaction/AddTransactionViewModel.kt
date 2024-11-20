@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cashbox.android.R
 
-class TransactionViewModel : ViewModel() {
+class AddTransactionViewModel : ViewModel() {
     private val _transactionType = MutableLiveData<String>().apply { value = "Pemasukan" }
     val transactionType: LiveData<String> = _transactionType
 

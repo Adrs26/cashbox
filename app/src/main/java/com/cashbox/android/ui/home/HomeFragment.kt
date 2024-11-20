@@ -27,7 +27,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun setupMenu() {
         binding.ivProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_home_to_nav_profile)
+            findNavController().navigate(R.id.action_nav_home_to_nav_account)
             (activity as MainActivity).hideBottomNav()
         }
     }

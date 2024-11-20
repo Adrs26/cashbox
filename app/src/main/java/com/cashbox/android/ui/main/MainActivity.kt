@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             val isMenuShowed = destination.id in getShowedMenuDestination()
             val isBackgroundStatusBar = destination.id in getBackgroundStatusBarDestination()
             listOf(binding.bottomNavView, binding.btnAdd).forEach {
-                it.visibility = if (isMenuShowed) View.GONE else View.VISIBLE
+                it.visibility = if (isMenuShowed) View.VISIBLE else View.GONE
             }
             changeStatusBarColor(if (isBackgroundStatusBar) R.color.background else R.color.sky_blue)
         }
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun getBackgroundStatusBarDestination(): Set<Int> {
-        return setOf(R.id.nav_transaction_categories)
+        return setOf(R.id.nav_transaction_categories, R.id.nav_my_account, R.id.nav_notifications)
     }
 
     private fun changeStatusBarColor(color: Int) {

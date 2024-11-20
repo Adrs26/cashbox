@@ -20,8 +20,8 @@ import com.cashbox.android.utils.toOriginalNumber
 
 class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
     private val binding by viewBinding(FragmentAddTransactionBinding::bind)
-    private val transactionViewModel by lazy {
-        ViewModelProvider(requireActivity())[TransactionViewModel::class.java]
+    private val addTransactionViewModel by lazy {
+        ViewModelProvider(requireActivity())[AddTransactionViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,10 +39,10 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
             (activity as MainActivity).showBottomNav()
         }
         binding.btnIncome.setOnClickListener {
-            transactionViewModel.changeTransactionType(resources.getString(R.string.income))
+            addTransactionViewModel.changeTransactionType(resources.getString(R.string.income))
         }
         binding.btnExpense.setOnClickListener {
-            transactionViewModel.changeTransactionType(resources.getString(R.string.expense))
+            addTransactionViewModel.changeTransactionType(resources.getString(R.string.expense))
         }
     }
 
@@ -95,13 +95,13 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
     }
 
     private fun setupObservers() {
-        transactionViewModel.transactionCategory.observe(viewLifecycleOwner) { category ->
+        addTransactionViewModel.transactionCategory.observe(viewLifecycleOwner) { category ->
             binding.edtCategory.setText(category)
         }
-        transactionViewModel.incomeButtonBackground.observe(viewLifecycleOwner) { background ->
+        addTransactionViewModel.incomeButtonBackground.observe(viewLifecycleOwner) { background ->
             binding.btnIncome.background = ContextCompat.getDrawable(requireContext(), background)
         }
-        transactionViewModel.expenseButtonBackground.observe(viewLifecycleOwner) { background ->
+        addTransactionViewModel.expenseButtonBackground.observe(viewLifecycleOwner) { background ->
             binding.btnExpense.background = ContextCompat.getDrawable(requireContext(), background)
         }
     }

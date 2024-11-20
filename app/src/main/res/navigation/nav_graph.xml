@@ -9,8 +9,8 @@
         android:name="com.cashbox.android.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_to_nav_profile"
-            app:destination="@id/nav_profile"
+            android:id="@+id/action_nav_home_to_nav_account"
+            app:destination="@id/nav_account"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -33,9 +33,24 @@
         tools:layout="@layout/fragment_analysis" />
 
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="com.cashbox.android.ui.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/nav_account"
+        android:name="com.cashbox.android.ui.account.AccountFragment"
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_nav_account_to_nav_my_account"
+            app:destination="@id/nav_my_account"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_account_to_nav_notifications"
+            app:destination="@id/nav_notifications"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_add_transaction"
@@ -62,4 +77,14 @@
         android:id="@+id/nav_transaction_categories"
         android:name="com.cashbox.android.ui.transaction.TransactionCategoriesFragment"
         tools:layout="@layout/fragment_transaction_categories" />
+
+    <fragment
+        android:id="@+id/nav_my_account"
+        android:name="com.cashbox.android.ui.account.MyAccountFragment"
+        tools:layout="@layout/fragment_my_account" />
+
+    <fragment
+        android:id="@+id/nav_notifications"
+        android:name="com.cashbox.android.ui.account.NotificationsFragment"
+        tools:layout="@layout/fragment_notifications" />
 </navigation>
