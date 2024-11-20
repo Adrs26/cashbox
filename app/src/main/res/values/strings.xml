@@ -8,4 +8,33 @@
     <string name="good_afternoon">Selamat Siang,</string>
     <string name="good_evening">Selamat Sore,</string>
     <string name="good_night">Selamat Malam,</string>
+    <string name="income">Pemasukan</string>
+    <string name="expense">Pengeluaran</string>
+    <string name="income_category">Kategori Pemasukan</string>
+    <string name="expense_category">Kategori Pengeluaran</string>
+
+    <string-array name="income_categories">
+        <item>Gaji</item>
+        <item>Bonus</item>
+        <item>Usaha Sampingan</item>
+        <item>Investasi (Pemasukan)</item>
+        <item>Pemasukan Lain</item>
+    </string-array>
+
+    <string-array name="expense_categories">
+        <item>Makanan &amp; Minuman</item>
+        <item>Transportasi</item>
+        <item>Kesehatan</item>
+        <item>Tagihan &amp; Utilitas</item>
+        <item>Pendidikan</item>
+        <item>Hiburan</item>
+        <item>Belanja</item>
+        <item>Investasi (Pengeluaran)</item>
+        <item>Perawatan Pribadi</item>
+        <item>Donasi</item>
+        <item>Asuransi</item>
+        <item>Kebutuhan Rumah Tangga</item>
+        <item>Pajak</item>
+        <item>Pengeluaran Lain</item>
+    </string-array>
 </resources>

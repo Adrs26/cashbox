@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="20dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="16dp"
         android:background="@drawable/bg_top"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -184,6 +185,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/bg_search_view"
+        android:theme="@style/CustomSearchView"
         app:iconifiedByDefault="false"
         app:searchIcon="@drawable/ic_search"
         app:layout_constraintStart_toStartOf="parent"

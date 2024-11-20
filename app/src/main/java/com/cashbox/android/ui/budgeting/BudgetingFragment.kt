@@ -1,4 +1,4 @@
-package com.cashbox.android.ui.fragment
+package com.cashbox.android.ui.budgeting
 
 import androidx.fragment.app.Fragment
 import com.cashbox.android.R

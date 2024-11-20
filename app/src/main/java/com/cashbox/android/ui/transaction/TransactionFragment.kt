@@ -1,6 +1,5 @@
-package com.cashbox.android.ui.fragment
+package com.cashbox.android.ui.transaction
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,7 +9,6 @@ import com.cashbox.android.R
 import com.cashbox.android.adapter.TransactionAdapter
 import com.cashbox.android.databinding.FragmentTransactionBinding
 
-@SuppressLint("DiscouragedApi")
 class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     private val binding by viewBinding(FragmentTransactionBinding::bind)
     private lateinit var transactionAdapter: TransactionAdapter

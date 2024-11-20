@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.cashbox.android.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_profile"
+            app:destination="@id/nav_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_budgeting"
+        android:name="com.cashbox.android.ui.budgeting.BudgetingFragment"
+        tools:layout="@layout/fragment_budgeting" />
+
+    <fragment
+        android:id="@+id/nav_transaction"
+        android:name="com.cashbox.android.ui.transaction.TransactionFragment"
+        tools:layout="@layout/fragment_transaction"/>
+
+    <fragment
+        android:id="@+id/nav_analysis"
+        android:name="com.cashbox.android.ui.analysis.AnalysisFragment"
+        tools:layout="@layout/fragment_analysis" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.cashbox.android.ui.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_add_transaction"
+        android:name="com.cashbox.android.ui.transaction.AddTransactionFragment"
+        tools:layout="@layout/fragment_add_transaction" >
+        <action
+            android:id="@+id/action_nav_add_transaction_to_nav_transaction_categories"
+            app:destination="@id/nav_transaction_categories"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <action
+        android:id="@+id/action_to_nav_add_transaction"
+        app:destination="@id/nav_add_transaction"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:exitAnim="@anim/slide_out_bottom"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_bottom"/>
+
+    <fragment
+        android:id="@+id/nav_transaction_categories"
+        android:name="com.cashbox.android.ui.transaction.TransactionCategoriesFragment"
+        tools:layout="@layout/fragment_transaction_categories" />
+</navigation>

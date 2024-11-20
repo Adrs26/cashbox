@@ -1,14 +1,16 @@
-package com.cashbox.android.ui.fragment
+package com.cashbox.android.ui.home
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
 import com.cashbox.android.adapter.GoalsAdapter
 import com.cashbox.android.adapter.TransactionAdapter
 import com.cashbox.android.databinding.FragmentHomeBinding
+import com.cashbox.android.ui.main.MainActivity
 import java.util.Calendar
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -18,8 +20,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupMenu()
         setupGreetingText()
         setupAdapter()
+    }
+
+    private fun setupMenu() {
+        binding.ivProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_home_to_nav_profile)
+            (activity as MainActivity).hideBottomNav()
+        }
     }
 
     private fun setupGreetingText() {
