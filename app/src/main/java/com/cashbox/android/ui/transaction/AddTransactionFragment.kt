@@ -15,7 +15,7 @@ import com.cashbox.android.R
 import com.cashbox.android.databinding.FragmentAddTransactionBinding
 import com.cashbox.android.ui.main.MainActivity
 import com.cashbox.android.utils.DateUtils
-import com.cashbox.android.utils.toFormattedString
+import com.cashbox.android.utils.toIndonesianNumberString
 import com.cashbox.android.utils.toOriginalNumber
 
 class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
@@ -65,7 +65,7 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
             override fun afterTextChanged(s: Editable?) {
                 val inputAmount = s.toString()
                 if (inputAmount.isNotEmpty()) {
-                    val formattedAmount = inputAmount.toOriginalNumber().toFormattedString()
+                    val formattedAmount = inputAmount.toOriginalNumber().toIndonesianNumberString()
                     updateAmountEditText(binding.edtAmount, formattedAmount, this)
                 }
             }

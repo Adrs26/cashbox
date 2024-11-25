@@ -4,7 +4,7 @@ import com.cashbox.android.R
 import java.text.NumberFormat
 import java.util.Locale
 
-fun Long.toFormattedString(): String {
+fun Long.toIndonesianNumberString(): String {
     val numberFormat = NumberFormat.getNumberInstance(Locale("in", "ID"))
     return numberFormat.format(this)
 }
