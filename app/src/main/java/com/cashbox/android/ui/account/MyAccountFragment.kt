@@ -13,12 +13,15 @@ class MyAccountFragment : Fragment(R.layout.fragment_my_account) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupButton()
+        setupButtons()
     }
 
-    private fun setupButton() {
+    private fun setupButtons() {
         binding.ibBack.setOnClickListener {
             findNavController().popBackStack()
+        }
+        binding.editAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_my_account_to_nav_edit_account)
         }
     }
 }

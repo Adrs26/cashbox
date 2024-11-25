@@ -14,7 +14,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
 import com.cashbox.android.databinding.FragmentAddTransactionBinding
 import com.cashbox.android.ui.main.MainActivity
-import com.cashbox.android.utils.DateUtils
+import com.cashbox.android.utils.AnimationHelper
+import com.cashbox.android.utils.DateHelper
+import com.cashbox.android.utils.DatePickerDialog
 import com.cashbox.android.utils.toIndonesianNumberString
 import com.cashbox.android.utils.toOriginalNumber
 
@@ -26,23 +28,33 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupButton()
+        setupButtons()
         setupBackPressedDispatcher()
         setupAmountEditText()
-        setupCategoryDateEditText()
+        setupCategoryAndWalletEditText()
+        setupDateEditText()
         setupObservers()
     }
 
-    private fun setupButton() {
-        binding.ibClose.setOnClickListener {
-            findNavController().popBackStack()
-            (activity as MainActivity).showBottomNav()
-        }
-        binding.btnIncome.setOnClickListener {
-            addTransactionViewModel.changeTransactionType(resources.getString(R.string.income))
-        }
-        binding.btnExpense.setOnClickListener {
-            addTransactionViewModel.changeTransactionType(resources.getString(R.string.expense))
+    private fun setupButtons() {
+        binding.apply {
+            ibClose.setOnClickListener {
+                findNavController().popBackStack()
+                (activity as MainActivity).showBottomNav()
+            }
+
+            AnimationHelper.applyTouchAnimation(btnIncome)
+            btnIncome.setOnClickListener {
+                addTransactionViewModel.changeTransactionType(resources.getString(R.string.income))
+            }
+
+            AnimationHelper.applyTouchAnimation(btnExpense)
+            btnExpense.setOnClickListener {
+                addTransactionViewModel.changeTransactionType(resources.getString(R.string.expense))
+            }
+
+            AnimationHelper.applyTouchAnimation(btnAdd)
+            btnAdd.setOnClickListener {}
         }
     }
 
@@ -79,18 +91,27 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
         editText.addTextChangedListener(watcher)
     }
 
-    private fun setupCategoryDateEditText() {
+    private fun setupCategoryAndWalletEditText() {
+        binding.edtCategory.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_nav_add_transaction_to_nav_transaction_categories
+            )
+        }
+        binding.edtWallet.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_nav_add_transaction_to_nav_money_source
+            )
+        }
+    }
+
+    private fun setupDateEditText() {
         binding.edtDate.setOnClickListener {
             DatePickerDialog().apply {
                 onDateSetListener = { year, month, day ->
                     val selectedDate = "$year-${month + 1}-$day"
-                    binding.edtDate.setText(DateUtils.convertDateToIndonesianFormat(selectedDate))
+                    binding.edtDate.setText(DateHelper.convertDateToIndonesianFormat(selectedDate))
                 }
             }.show(parentFragmentManager, "DATE_PICKER_DIALOG")
-        }
-
-        binding.edtCategory.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_add_transaction_to_nav_transaction_categories)
         }
     }
 

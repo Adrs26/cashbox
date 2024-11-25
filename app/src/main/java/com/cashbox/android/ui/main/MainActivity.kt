@@ -50,11 +50,22 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun getShowedMenuDestination(): Set<Int> {
-        return setOf(R.id.nav_home, R.id.nav_budgeting, R.id.nav_transaction, R.id.nav_analysis)
+        return setOf(
+            R.id.nav_home,
+            R.id.nav_budgeting,
+            R.id.nav_transaction,
+            R.id.nav_analysis
+        )
     }
 
     private fun getBackgroundStatusBarDestination(): Set<Int> {
-        return setOf(R.id.nav_transaction_categories, R.id.nav_my_account, R.id.nav_notifications)
+        return setOf(
+            R.id.nav_transaction_categories,
+            R.id.nav_my_account,
+            R.id.nav_edit_account,
+            R.id.nav_notifications,
+            R.id.nav_money_source
+        )
     }
 
     private fun changeStatusBarColor(color: Int) {

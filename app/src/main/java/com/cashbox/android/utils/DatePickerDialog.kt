@@ -1,4 +1,4 @@
-package com.cashbox.android.ui.transaction
+package com.cashbox.android.utils
 
 import android.app.DatePickerDialog
 import android.app.Dialog

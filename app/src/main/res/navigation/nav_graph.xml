@@ -63,6 +63,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_add_transaction_to_nav_money_source"
+            app:destination="@id/nav_money_source"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <action
@@ -81,10 +88,28 @@
     <fragment
         android:id="@+id/nav_my_account"
         android:name="com.cashbox.android.ui.account.MyAccountFragment"
-        tools:layout="@layout/fragment_my_account" />
+        tools:layout="@layout/fragment_my_account" >
+        <action
+            android:id="@+id/action_nav_my_account_to_nav_edit_account"
+            app:destination="@id/nav_edit_account"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_notifications"
         android:name="com.cashbox.android.ui.account.NotificationsFragment"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/nav_money_source"
+        android:name="com.cashbox.android.ui.transaction.MoneySourceFragment"
+        tools:layout="@layout/fragment_money_source" />
+
+    <fragment
+        android:id="@+id/nav_edit_account"
+        android:name="com.cashbox.android.ui.account.EditAccountFragment"
+        tools:layout="@layout/fragment_edit_account"/>
 </navigation>
