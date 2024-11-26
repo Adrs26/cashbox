@@ -1,5 +1,7 @@
 <resources>
-    <style name="Base.Theme.CashBox" parent="Theme.Material3.Light.NoActionBar"/>
+    <style name="Base.Theme.CashBox" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowBackground">@color/background</item>
+    </style>
 
     <style name="CustomBottomNavTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/inter_medium</item>

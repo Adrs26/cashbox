@@ -3,6 +3,8 @@ package com.cashbox.android.ui.main
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -32,9 +34,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController = findNavController(R.id.nav_host_fragment_activity_main)
         binding.bottomNavView.setupWithNavController(navController)
 
+        var lastClickTime: Long = 0
         binding.btnAdd.setOnClickListener {
-            navController.navigate(R.id.action_to_nav_add_transaction)
-            hideBottomNav()
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - lastClickTime > 1000) {
+                lastClickTime = currentTime
+                navController.navigate(R.id.action_to_nav_add_transaction)
+                hideBottomNav()
+            }
         }
     }
 
@@ -61,10 +68,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private fun getBackgroundStatusBarDestination(): Set<Int> {
         return setOf(
             R.id.nav_transaction_categories,
+            R.id.nav_money_source,
             R.id.nav_my_account,
             R.id.nav_edit_account,
             R.id.nav_notifications,
-            R.id.nav_money_source
+            R.id.nav_wallet,
+            R.id.nav_add_wallet,
+            R.id.nav_edit_wallet
         )
     }
 

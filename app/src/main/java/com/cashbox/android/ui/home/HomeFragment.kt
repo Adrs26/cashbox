@@ -30,6 +30,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             findNavController().navigate(R.id.action_nav_home_to_nav_account)
             (activity as MainActivity).hideBottomNav()
         }
+        binding.ibWallet.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_home_to_nav_wallet)
+            (activity as MainActivity).hideBottomNav()
+        }
     }
 
     private fun setupGreetingText() {

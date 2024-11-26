@@ -15,6 +15,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_wallet"
+            app:destination="@id/nav_wallet"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -112,4 +119,35 @@
         android:id="@+id/nav_edit_account"
         android:name="com.cashbox.android.ui.account.EditAccountFragment"
         tools:layout="@layout/fragment_edit_account"/>
+
+    <fragment
+        android:id="@+id/nav_wallet"
+        android:name="com.cashbox.android.ui.wallet.WalletFragment"
+        tools:layout="@layout/fragment_wallet" >
+        <action
+            android:id="@+id/action_nav_wallet_to_nav_add_wallet"
+            app:destination="@id/nav_add_wallet"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_bottom"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_bottom"/>
+        <action
+            android:id="@+id/action_nav_wallet_to_nav_edit_wallet"
+            app:destination="@id/nav_edit_wallet"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_add_wallet"
+        android:name="com.cashbox.android.ui.wallet.AddWalletFragment"
+        tools:layout="@layout/fragment_add_wallet" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_wallet"
+        android:name="com.cashbox.android.ui.wallet.EditWalletFragment"
+        tools:layout="@layout/fragment_edit_wallet" />
 </navigation>
