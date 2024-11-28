@@ -27,15 +27,15 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 (activity as MainActivity).showBottomNav()
             }
 
-            setupButtonWithNavigation(btnMyAccount, R.id.action_nav_account_to_nav_my_account)
-            setupButtonWithNavigation(btnNotifications, R.id.action_nav_account_to_nav_notifications)
-        }
-    }
+            AnimationHelper.applyTouchAnimation(btnMyAccount)
+            AnimationHelper.applyTouchAnimation(btnNotifications)
 
-    private fun setupButtonWithNavigation(button: View, actionId: Int) {
-        AnimationHelper.applyTouchAnimation(button)
-        button.setOnClickListener {
-            findNavController().navigate(actionId)
+            btnMyAccount.setOnClickListener {
+                findNavController().navigate(R.id.action_nav_account_to_nav_my_account)
+            }
+            btnNotifications.setOnClickListener {
+                findNavController().navigate(R.id.action_nav_account_to_nav_notifications)
+            }
         }
     }
 

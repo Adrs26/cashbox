@@ -21,6 +21,7 @@ class BudgetingFragment : Fragment(R.layout.fragment_budgeting) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
+        getProgress()
         setupObservers()
     }
 
@@ -31,22 +32,30 @@ class BudgetingFragment : Fragment(R.layout.fragment_budgeting) {
         budgetingAdapter.submitList(listOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
     }
 
+    private fun getProgress() {
+        budgetingViewModel.getProgress(50)
+    }
+
     private fun setupObservers() {
         budgetingViewModel.isFirstTime.observe(viewLifecycleOwner) { isFirstTime ->
             if (isFirstTime) {
-                animateCircularProgress()
-                budgetingViewModel.changeFirstTimeValue()
+                animateCircularProgress(budgetingViewModel.progress.value!!)
             }
+        }
+
+        budgetingViewModel.progress.observe(viewLifecycleOwner) { progress ->
+            binding.cpBudgeting.progress = progress
         }
     }
 
-    private fun animateCircularProgress() {
-        val animator = ValueAnimator.ofInt(0, 50)
+    private fun animateCircularProgress(progress: Int) {
+        val animator = ValueAnimator.ofInt(0, progress)
         animator.duration = 1000
         animator.addUpdateListener { animation ->
             val animatedValue = animation.animatedValue as Int
             binding.cpBudgeting.progress = animatedValue
         }
         animator.start()
+        budgetingViewModel.changeFirstTimeValue()
     }
 }

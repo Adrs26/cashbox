@@ -44,16 +44,15 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
             }
 
             AnimationHelper.applyTouchAnimation(btnIncome)
+            AnimationHelper.applyTouchAnimation(btnExpense)
+            AnimationHelper.applyTouchAnimation(btnAdd)
+
             btnIncome.setOnClickListener {
                 addTransactionViewModel.changeTransactionType(resources.getString(R.string.income))
             }
-
-            AnimationHelper.applyTouchAnimation(btnExpense)
             btnExpense.setOnClickListener {
                 addTransactionViewModel.changeTransactionType(resources.getString(R.string.expense))
             }
-
-            AnimationHelper.applyTouchAnimation(btnAdd)
             btnAdd.setOnClickListener {}
         }
     }

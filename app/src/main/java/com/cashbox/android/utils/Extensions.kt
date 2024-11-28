@@ -37,3 +37,23 @@ fun String.getImageResource(): Int {
         else -> 0
     }
 }
+
+fun String.getColorResource(): String {
+    return when (this) {
+        "Makanan & Minuman" -> "#FF9800"
+        "Transportasi" -> "#2979FF"
+        "Kesehatan" -> "#FF5252"
+        "Tagihan & Utilitas" -> "#424242"
+        "Pendidikan" -> "#40C4FF"
+        "Hiburan" -> "#D500F9"
+        "Belanja" -> "#FF4081"
+        "Investasi (Pengeluaran)" -> "#00BFA5"
+        "Perawatan Pribadi" -> "#AB47BC"
+        "Donasi" -> "#26C6DA"
+        "Asuransi" -> "#263238"
+        "Kebutuhan Rumah Tangga" -> "#8D6E63"
+        "Pajak" -> "#FFC107"
+        "Pengeluaran Lain" -> "#B0BEC5"
+        else -> ""
+    }
+}

@@ -18,6 +18,7 @@ class EditAccountFragment : Fragment(R.layout.fragment_edit_account) {
         super.onViewCreated(view, savedInstanceState)
         setupButtons()
         setupBirthDateEditText()
+        setupGenderRadioButton()
     }
 
     private fun setupButtons() {
@@ -41,6 +42,18 @@ class EditAccountFragment : Fragment(R.layout.fragment_edit_account) {
                     )
                 }
             }.show(parentFragmentManager, "DATE_PICKER_DIALOG")
+        }
+    }
+
+    private fun setupGenderRadioButton() {
+        binding.btnRadioMale.setOnClickListener {
+            binding.btnRadioMale.setImageResource(R.drawable.ic_btn_radio_checked)
+            binding.btnRadioFemale.setImageResource(R.drawable.ic_btn_radio_unchecked)
+        }
+
+        binding.btnRadioFemale.setOnClickListener {
+            binding.btnRadioMale.setImageResource(R.drawable.ic_btn_radio_unchecked)
+            binding.btnRadioFemale.setImageResource(R.drawable.ic_btn_radio_checked)
         }
     }
 }
