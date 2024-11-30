@@ -94,38 +94,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_name"/>
 
-    <TextView
-        android:id="@+id/tv_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="24dp"
-        android:fontFamily="@font/inter_semi_bold"
-        android:text="Nominal"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_wallet_name"/>
-
-    <EditText
-        android:id="@+id/edt_amount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="2dp"
-        android:padding="12dp"
-        android:background="@drawable/bg_btn_white"
-        android:drawableStart="@drawable/ic_rupiah"
-        android:drawablePadding="12dp"
-        android:fontFamily="@font/inter_medium"
-        android:text="3000000"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:inputType="numberDecimal"
-        android:singleLine="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_amount"/>
-
     <LinearLayout
         android:id="@+id/btn_save_wallet"
         android:layout_width="match_parent"
@@ -134,7 +102,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/bg_rounded_corner_blue"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/edt_amount">
+        app:layout_constraintTop_toBottomOf="@id/edt_wallet_name">
 
         <TextView
             android:id="@+id/tv_save_wallet"

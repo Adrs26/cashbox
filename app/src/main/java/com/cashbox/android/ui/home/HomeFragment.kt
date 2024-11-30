@@ -3,6 +3,7 @@ package com.cashbox.android.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -11,6 +12,7 @@ import com.cashbox.android.adapter.GoalsAdapter
 import com.cashbox.android.adapter.TransactionAdapter
 import com.cashbox.android.databinding.FragmentHomeBinding
 import com.cashbox.android.ui.main.MainActivity
+import com.cashbox.android.utils.AnimationHelper
 import java.util.Calendar
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -20,19 +22,31 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupMenu()
+        setupButtons()
         setupGreetingText()
         setupAdapter()
     }
 
-    private fun setupMenu() {
-        binding.ivProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_home_to_nav_account)
-            (activity as MainActivity).hideBottomNav()
-        }
-        binding.ibWallet.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_home_to_nav_wallet)
-            (activity as MainActivity).hideBottomNav()
+    private fun setupButtons() {
+        binding.apply {
+            ivProfile.setOnClickListener {
+                findNavController().navigate(R.id.action_nav_home_to_nav_account)
+                (activity as MainActivity).hideBottomNav()
+            }
+            ibWallet.setOnClickListener {
+                findNavController().navigate(R.id.action_nav_home_to_nav_wallet)
+                (activity as MainActivity).hideBottomNav()
+            }
+            ibGoals.setOnClickListener {
+                findNavController().navigate(R.id.action_nav_home_to_nav_goals)
+                (activity as MainActivity).hideBottomNav()
+            }
+
+            AnimationHelper.applyTouchAnimation(btnMoreGoals)
+            btnMoreGoals.setOnClickListener {
+                findNavController().navigate(R.id.action_nav_home_to_nav_goals)
+                (activity as MainActivity).hideBottomNav()
+            }
         }
     }
 
@@ -55,7 +69,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.rvLastTransaction.adapter = transactionAdapter
         transactionAdapter.submitList(listOf(1, 1, 1))
 
-        goalsAdapter = GoalsAdapter()
+        goalsAdapter = GoalsAdapter(object : GoalsAdapter.OnItemClickListener {
+            override fun onItemClick() {
+                findNavController().navigate(R.id.action_nav_home_to_nav_goals_detail)
+                (activity as MainActivity).hideBottomNav()
+            }
+        })
         binding.rvGoalsTracker.layoutManager = LinearLayoutManager(requireContext())
         binding.rvGoalsTracker.adapter = goalsAdapter
         goalsAdapter.submitList(listOf(1, 1, 1))

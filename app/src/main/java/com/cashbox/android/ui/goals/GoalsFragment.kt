@@ -1,4 +1,4 @@
-package com.cashbox.android.ui.wallet
+package com.cashbox.android.ui.goals
 
 import android.os.Bundle
 import android.view.View
@@ -8,13 +8,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
-import com.cashbox.android.adapter.WalletAdapter
-import com.cashbox.android.databinding.FragmentWalletBinding
+import com.cashbox.android.adapter.GoalsAdapter
+import com.cashbox.android.databinding.FragmentGoalsBinding
 import com.cashbox.android.ui.main.MainActivity
 
-class WalletFragment : Fragment(R.layout.fragment_wallet) {
-    private val binding by viewBinding(FragmentWalletBinding::bind)
-    private lateinit var walletAdapter: WalletAdapter
+class GoalsFragment : Fragment(R.layout.fragment_goals) {
+    private val binding by viewBinding(FragmentGoalsBinding::bind)
+    private lateinit var goalsAdapter: GoalsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,10 +27,6 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
         binding.ibBack.setOnClickListener {
             findNavController().popBackStack()
             (activity as MainActivity).showBottomNav()
-        }
-
-        binding.btnAddWallet.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_wallet_to_nav_add_wallet)
         }
     }
 
@@ -46,13 +42,13 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
     }
 
     private fun setupAdapter() {
-        walletAdapter = WalletAdapter(object : WalletAdapter.OnItemClickListener {
+        goalsAdapter = GoalsAdapter(object : GoalsAdapter.OnItemClickListener {
             override fun onItemClick() {
-                findNavController().navigate(R.id.action_nav_wallet_to_nav_edit_wallet)
+                findNavController().navigate(R.id.action_nav_goals_to_nav_goals_detail)
             }
         })
-        binding.rvWallet.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvWallet.adapter = walletAdapter
-        walletAdapter.submitList(listOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+        binding.rvGoals.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvGoals.adapter = goalsAdapter
+        goalsAdapter.submitList(listOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
     }
 }

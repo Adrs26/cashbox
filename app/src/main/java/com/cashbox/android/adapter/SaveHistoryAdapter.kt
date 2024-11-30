@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cashbox.android.databinding.ItemGoalsBinding
+import com.cashbox.android.databinding.ItemSaveBinding
 
-class GoalsAdapter(
-    private val onItemClickListener: OnItemClickListener
-) : ListAdapter<Int, GoalsAdapter.ItemViewHolder>(
+class SaveHistoryAdapter : ListAdapter<Int, SaveHistoryAdapter.ItemViewHolder>(
     object : DiffUtil.ItemCallback<Int>() {
         override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
             return oldItem == newItem
@@ -22,7 +20,7 @@ class GoalsAdapter(
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemGoalsBinding.inflate(inflater, parent, false)
+        val binding = ItemSaveBinding.inflate(inflater, parent, false)
         return ItemViewHolder(binding)
     }
 
@@ -30,17 +28,11 @@ class GoalsAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class ItemViewHolder(
-        private val itemBinding: ItemGoalsBinding
+    class ItemViewHolder(
+        private val itemBinding: ItemSaveBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(data: Int) {
-            itemBinding.root.setOnClickListener {
-                onItemClickListener.onItemClick()
-            }
-        }
-    }
 
-    interface OnItemClickListener {
-        fun onItemClick()
+        }
     }
 }

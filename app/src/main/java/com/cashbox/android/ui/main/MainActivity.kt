@@ -1,10 +1,8 @@
 package com.cashbox.android.ui.main
 
-import android.annotation.SuppressLint
+ import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -74,7 +72,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             R.id.nav_notifications,
             R.id.nav_wallet,
             R.id.nav_add_wallet,
-            R.id.nav_edit_wallet
+            R.id.nav_edit_wallet,
+            R.id.nav_goals,
+            R.id.nav_goals_detail
         )
     }
 

@@ -12,7 +12,7 @@
         android:id="@+id/iv_category"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:src="@drawable/ic_expense_entertainment"
+        android:src="@drawable/ic_bg_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -23,11 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="Nonton Film"
+        android:text="Nabung"
         android:textSize="14sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/iv_category"
-        app:layout_constraintEnd_toStartOf="@id/tv_sign"
+        app:layout_constraintEnd_toStartOf="@id/tv_amount"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -66,19 +66,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title"/>
 
     <TextView
-        android:id="@+id/tv_sign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:fontFamily="@font/inter_semi_bold"
-        android:text="-"
-        android:textSize="12sp"
-        android:textColor="@color/red"
-        app:layout_constraintEnd_toStartOf="@id/tv_amount"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <TextView
         android:id="@+id/tv_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,7 +73,7 @@
         android:fontFamily="@font/inter_semi_bold"
         android:text="Rp50.000"
         android:textSize="12sp"
-        android:textColor="@color/red"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

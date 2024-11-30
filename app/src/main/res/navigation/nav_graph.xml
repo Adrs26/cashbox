@@ -22,6 +22,23 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_goals"
+            app:destination="@id/nav_goals"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_goals_detail"
+            app:destination="@id/nav_goals_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_budgeting"
+            app:destination="@id/nav_budgeting" />
     </fragment>
 
     <fragment
@@ -150,4 +167,22 @@
         android:id="@+id/nav_edit_wallet"
         android:name="com.cashbox.android.ui.wallet.EditWalletFragment"
         tools:layout="@layout/fragment_edit_wallet" />
+
+    <fragment
+        android:id="@+id/nav_goals"
+        android:name="com.cashbox.android.ui.goals.GoalsFragment"
+        tools:layout="@layout/fragment_goals" >
+        <action
+            android:id="@+id/action_nav_goals_to_nav_goals_detail"
+            app:destination="@id/nav_goals_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_goals_detail"
+        android:name="com.cashbox.android.ui.goals.GoalsDetailFragment"
+        tools:layout="@layout/fragment_goals_detail" />
 </navigation>
