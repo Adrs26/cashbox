@@ -1,28 +1,29 @@
-package com.cashbox.android.adapter
+package com.cashbox.android.ui.transaction
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cashbox.android.databinding.ItemGoalsBinding
+import com.cashbox.android.databinding.ItemCategoriesBinding
+import com.cashbox.android.utils.getImageResource
 
-class GoalsAdapter(
+class TransactionCategoriesAdapter(
     private val onItemClickListener: OnItemClickListener
-) : ListAdapter<Int, GoalsAdapter.ItemViewHolder>(
-    object : DiffUtil.ItemCallback<Int>() {
-        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
+) : ListAdapter<String, TransactionCategoriesAdapter.ItemViewHolder>(
+    object : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
     }
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemGoalsBinding.inflate(inflater, parent, false)
+        val binding = ItemCategoriesBinding.inflate(inflater, parent, false)
         return ItemViewHolder(binding)
     }
 
@@ -31,16 +32,19 @@ class GoalsAdapter(
     }
 
     inner class ItemViewHolder(
-        private val itemBinding: ItemGoalsBinding
+        private val itemBinding: ItemCategoriesBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(data: Int) {
+        fun bind(data: String) {
+            itemBinding.ivCategory.setImageResource(data.getImageResource())
+            itemBinding.tvCategory.text = data
+
             itemBinding.root.setOnClickListener {
-                onItemClickListener.onItemClick()
+                onItemClickListener.onItemClick(data)
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(transactionCategory: String)
     }
 }

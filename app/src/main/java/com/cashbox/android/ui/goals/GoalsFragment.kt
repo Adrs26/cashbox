@@ -8,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
-import com.cashbox.android.adapter.GoalsAdapter
 import com.cashbox.android.databinding.FragmentGoalsBinding
 import com.cashbox.android.ui.main.MainActivity
 
@@ -27,6 +26,9 @@ class GoalsFragment : Fragment(R.layout.fragment_goals) {
         binding.ibBack.setOnClickListener {
             findNavController().popBackStack()
             (activity as MainActivity).showBottomNav()
+        }
+        binding.tvAddGoals.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_goals_to_nav_add_goals)
         }
     }
 

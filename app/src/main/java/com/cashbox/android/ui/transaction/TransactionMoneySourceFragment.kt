@@ -7,10 +7,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
-import com.cashbox.android.adapter.WalletAdapter
+import com.cashbox.android.ui.wallet.WalletAdapter
 import com.cashbox.android.databinding.FragmentMoneySourceBinding
 
-class MoneySourceFragment : Fragment(R.layout.fragment_money_source) {
+class TransactionMoneySourceFragment : Fragment(R.layout.fragment_money_source) {
     private val binding by viewBinding(FragmentMoneySourceBinding::bind)
     private lateinit var walletAdapter: WalletAdapter
 

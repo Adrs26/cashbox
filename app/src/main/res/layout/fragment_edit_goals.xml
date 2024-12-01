@@ -22,17 +22,17 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="Tambah Wallet"
+        android:text="Edit Goals"
         android:textSize="16sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/ib_back"
         app:layout_constraintTop_toTopOf="parent" />
-    
+
     <ImageView
-        android:id="@+id/iv_wallet"
+        android:id="@+id/iv_goals"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginVertical="24dp"
         android:src="@drawable/ic_bg_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,10 +49,10 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_wallet"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_goals"/>
 
     <EditText
-        android:id="@+id/edt_wallet_name"
+        android:id="@+id/edt_goals_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -77,7 +77,7 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_wallet_name"/>
+        app:layout_constraintTop_toBottomOf="@id/edt_goals_title"/>
 
     <EditText
         android:id="@+id/edt_amount"
@@ -97,28 +97,60 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_amount"/>
 
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/inter_semi_bold"
+        android:text="Perkiraan Goals Tercapai"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_amount"/>
+
+    <EditText
+        android:id="@+id/edt_date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:background="@drawable/bg_btn_white"
+        android:drawableEnd="@drawable/ic_calendar"
+        android:drawablePadding="12dp"
+        android:fontFamily="@font/inter_medium"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_date"/>
+
     <LinearLayout
-        android:id="@+id/btn_add_wallet"
+        android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/bg_rounded_corner_blue"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/edt_amount">
+        app:layout_constraintTop_toBottomOf="@id/edt_date">
 
         <TextView
-            android:id="@+id/tv_add_wallet"
+            android:id="@+id/tv_save"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Tambah Wallet"
+            android:text="Simpan Perubahan"
             android:textSize="16sp"
             android:textColor="@color/white" />
 
         <ProgressBar
-            android:id="@+id/pb_add_wallet"
+            android:id="@+id/pb_save"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"

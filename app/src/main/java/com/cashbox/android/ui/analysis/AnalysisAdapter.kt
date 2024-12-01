@@ -1,4 +1,4 @@
-package com.cashbox.android.adapter
+package com.cashbox.android.ui.analysis
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

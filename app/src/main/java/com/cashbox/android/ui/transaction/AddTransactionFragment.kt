@@ -1,10 +1,7 @@
 package com.cashbox.android.ui.transaction
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
-import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -16,9 +13,7 @@ import com.cashbox.android.databinding.FragmentAddTransactionBinding
 import com.cashbox.android.ui.main.MainActivity
 import com.cashbox.android.utils.AnimationHelper
 import com.cashbox.android.utils.DateHelper
-import com.cashbox.android.utils.DatePickerDialog
-import com.cashbox.android.utils.toIndonesianNumberString
-import com.cashbox.android.utils.toOriginalNumber
+import com.cashbox.android.utils.NumberFormatHelper
 
 class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
     private val binding by viewBinding(FragmentAddTransactionBinding::bind)
@@ -30,9 +25,7 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
         super.onViewCreated(view, savedInstanceState)
         setupButtons()
         setupBackPressedDispatcher()
-        setupAmountEditText()
-        setupCategoryAndWalletEditText()
-        setupDateEditText()
+        setupEditText()
         setupObservers()
     }
 
@@ -68,29 +61,10 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
         )
     }
 
-    private fun setupAmountEditText() {
-        binding.edtAmount.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    private fun setupEditText() {
+        NumberFormatHelper.setupAmountEditText(binding.edtAmount)
+        DateHelper.setupDateEditText(binding.edtDate, parentFragmentManager)
 
-            override fun afterTextChanged(s: Editable?) {
-                val inputAmount = s.toString()
-                if (inputAmount.isNotEmpty()) {
-                    val formattedAmount = inputAmount.toOriginalNumber().toIndonesianNumberString()
-                    updateAmountEditText(binding.edtAmount, formattedAmount, this)
-                }
-            }
-        })
-    }
-
-    private fun updateAmountEditText(editText: EditText, newText: String, watcher: TextWatcher) {
-        editText.removeTextChangedListener(watcher)
-        editText.setText(newText)
-        editText.setSelection(newText.length)
-        editText.addTextChangedListener(watcher)
-    }
-
-    private fun setupCategoryAndWalletEditText() {
         binding.edtCategory.setOnClickListener {
             findNavController().navigate(
                 R.id.action_nav_add_transaction_to_nav_transaction_categories
@@ -100,17 +74,6 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
             findNavController().navigate(
                 R.id.action_nav_add_transaction_to_nav_money_source
             )
-        }
-    }
-
-    private fun setupDateEditText() {
-        binding.edtDate.setOnClickListener {
-            DatePickerDialog().apply {
-                onDateSetListener = { year, month, day ->
-                    val selectedDate = "$year-${month + 1}-$day"
-                    binding.edtDate.setText(DateHelper.convertDateToIndonesianFormat(selectedDate))
-                }
-            }.show(parentFragmentManager, "DATE_PICKER_DIALOG")
         }
     }
 

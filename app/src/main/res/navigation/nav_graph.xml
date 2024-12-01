@@ -129,7 +129,7 @@
 
     <fragment
         android:id="@+id/nav_money_source"
-        android:name="com.cashbox.android.ui.transaction.MoneySourceFragment"
+        android:name="com.cashbox.android.ui.transaction.TransactionMoneySourceFragment"
         tools:layout="@layout/fragment_money_source" />
 
     <fragment
@@ -179,10 +179,80 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_goals_to_nav_add_goals"
+            app:destination="@id/nav_add_goals"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
         android:id="@+id/nav_goals_detail"
         android:name="com.cashbox.android.ui.goals.GoalsDetailFragment"
-        tools:layout="@layout/fragment_goals_detail" />
+        tools:layout="@layout/fragment_goals_detail" >
+        <action
+            android:id="@+id/action_nav_goals_detail_to_nav_add_save"
+            app:destination="@id/nav_add_save"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_goals_detail_to_nav_edit_save"
+            app:destination="@id/nav_edit_save"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_goals_detail_to_nav_edit_goals"
+            app:destination="@id/nav_edit_goals"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_add_goals"
+        android:name="com.cashbox.android.ui.goals.AddGoalsFragment"
+        tools:layout="@layout/fragment_add_goals" />
+
+    <fragment
+        android:id="@+id/nav_edit_goals"
+        android:name="com.cashbox.android.ui.goals.EditGoalsFragment"
+        tools:layout="@layout/fragment_edit_goals" />
+
+    <fragment
+        android:id="@+id/nav_add_save"
+        android:name="com.cashbox.android.ui.goals.AddSaveFragment"
+        tools:layout="@layout/fragment_add_save" >
+        <action
+            android:id="@+id/action_nav_add_save_to_nav_save_money_source"
+            app:destination="@id/nav_save_money_source"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_save"
+        android:name="com.cashbox.android.ui.goals.EditSaveFragment"
+        tools:layout="@layout/fragment_edit_save" >
+        <action
+            android:id="@+id/action_nav_edit_save_to_nav_save_money_source"
+            app:destination="@id/nav_save_money_source"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_save_money_source"
+        android:name="com.cashbox.android.ui.goals.SaveMoneySourceFragment"
+        tools:layout="@layout/fragment_money_source" />
 </navigation>

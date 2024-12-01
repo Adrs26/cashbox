@@ -9,7 +9,6 @@ import com.cashbox.android.R
 import com.cashbox.android.databinding.FragmentEditAccountBinding
 import com.cashbox.android.utils.AnimationHelper
 import com.cashbox.android.utils.DateHelper
-import com.cashbox.android.utils.DatePickerDialog
 
 class EditAccountFragment : Fragment(R.layout.fragment_edit_account) {
     private val binding by viewBinding(FragmentEditAccountBinding::bind)
@@ -33,16 +32,7 @@ class EditAccountFragment : Fragment(R.layout.fragment_edit_account) {
     }
 
     private fun setupBirthDateEditText() {
-        binding.edtUserBirthDate.setOnClickListener {
-            DatePickerDialog().apply {
-                onDateSetListener = { year, month, day ->
-                    val selectedDate = "$year-${month + 1}-$day"
-                    binding.edtUserBirthDate.setText(
-                        DateHelper.convertDateToIndonesianFormat(selectedDate)
-                    )
-                }
-            }.show(parentFragmentManager, "DATE_PICKER_DIALOG")
-        }
+        DateHelper.setupDateEditText(binding.edtUserBirthDate, parentFragmentManager)
     }
 
     private fun setupGenderRadioButton() {

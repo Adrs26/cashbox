@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
-import com.cashbox.android.adapter.BudgetingAdapter
 import com.cashbox.android.databinding.FragmentBudgetingBinding
 
 class BudgetingFragment : Fragment(R.layout.fragment_budgeting) {

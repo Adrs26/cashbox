@@ -1,13 +1,15 @@
-package com.cashbox.android.adapter
+package com.cashbox.android.ui.goals
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cashbox.android.databinding.ItemTransactionBinding
+import com.cashbox.android.databinding.ItemSaveBinding
 
-class TransactionAdapter : ListAdapter<Int, TransactionAdapter.ItemViewHolder>(
+class SaveAdapter(
+    private val onItemClickListener: OnItemClickListener
+) : ListAdapter<Int, SaveAdapter.ItemViewHolder>(
     object : DiffUtil.ItemCallback<Int>() {
         override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
             return oldItem == newItem
@@ -20,7 +22,7 @@ class TransactionAdapter : ListAdapter<Int, TransactionAdapter.ItemViewHolder>(
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemTransactionBinding.inflate(inflater, parent, false)
+        val binding = ItemSaveBinding.inflate(inflater, parent, false)
         return ItemViewHolder(binding)
     }
 
@@ -28,11 +30,17 @@ class TransactionAdapter : ListAdapter<Int, TransactionAdapter.ItemViewHolder>(
         holder.bind(getItem(position))
     }
 
-    class ItemViewHolder(
-        private val itemBinding: ItemTransactionBinding
+    inner class ItemViewHolder(
+        private val itemBinding: ItemSaveBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(data: Int) {
-
+            itemBinding.root.setOnClickListener {
+                onItemClickListener.onItemClick()
+            }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick()
     }
 }

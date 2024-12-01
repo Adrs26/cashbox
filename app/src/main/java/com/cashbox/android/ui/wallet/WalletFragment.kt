@@ -8,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
-import com.cashbox.android.adapter.WalletAdapter
 import com.cashbox.android.databinding.FragmentWalletBinding
 import com.cashbox.android.ui.main.MainActivity
 

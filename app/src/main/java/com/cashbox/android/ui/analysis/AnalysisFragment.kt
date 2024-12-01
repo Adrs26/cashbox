@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
-import com.cashbox.android.adapter.AnalysisAdapter
 import com.cashbox.android.data.model.Example
 import com.cashbox.android.databinding.FragmentAnalysisBinding
 import com.cashbox.android.utils.AnimationHelper

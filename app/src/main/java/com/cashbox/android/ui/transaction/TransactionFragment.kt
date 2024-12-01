@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
-import com.cashbox.android.adapter.TransactionAdapter
 import com.cashbox.android.databinding.FragmentTransactionBinding
 
 class TransactionFragment : Fragment(R.layout.fragment_transaction) {

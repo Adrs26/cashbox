@@ -3,13 +3,12 @@ package com.cashbox.android.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
-import com.cashbox.android.adapter.GoalsAdapter
-import com.cashbox.android.adapter.TransactionAdapter
+import com.cashbox.android.ui.goals.GoalsAdapter
+import com.cashbox.android.ui.transaction.TransactionAdapter
 import com.cashbox.android.databinding.FragmentHomeBinding
 import com.cashbox.android.ui.main.MainActivity
 import com.cashbox.android.utils.AnimationHelper
