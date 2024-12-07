@@ -12,16 +12,19 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.cashbox.android.BuildConfig
 import com.cashbox.android.R
 import com.cashbox.android.data.api.ApiClient
 import com.cashbox.android.data.datastore.DataStoreInstance
 import com.cashbox.android.data.datastore.UserPreference
+import com.cashbox.android.data.model.LoginBody
 import com.cashbox.android.data.model.LoginGoogleBody
 import com.cashbox.android.data.repository.UserRepository
 import com.cashbox.android.databinding.ActivityLoginBinding
 import com.cashbox.android.ui.main.MainActivity
 import com.cashbox.android.ui.viewmodel.ViewModelFactory
 import com.cashbox.android.utils.AnimationHelper
+import com.cashbox.android.utils.isEmailMatches
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -42,6 +45,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         UserPreference(DataStoreInstance.getInstance(this))
     }
     private lateinit var googleSignInClient: GoogleSignInClient
+    private var userEmail = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +70,16 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         AnimationHelper.applyTouchAnimation(binding.btnLoginWithGoogle)
 
         binding.btnLogin.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            userEmail = binding.edtEmail.text.toString()
+            val userPassword = binding.edtPassword.text.toString()
+
+            if (userEmail.isEmpty() || userPassword.isEmpty()) {
+                showToast(resources.getString(R.string.data_can_not_be_empty))
+            } else if (!userEmail.isEmailMatches()) {
+                showToast(resources.getString(R.string.invalid_email_format))
+            } else {
+                loginViewModel.userLogin(LoginBody(userEmail, userPassword))
+            }
         }
         binding.tvRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
@@ -78,15 +91,17 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private fun setupGoogleSignIn() {
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("806241381486-ihesjpl253igvodd3css54jijjh02lfs.apps.googleusercontent.com")
+            .requestIdToken(BuildConfig.WEB_CLIENT_ID)
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
     }
 
     private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        googleSignInClient.signOut().addOnCompleteListener(this) {
+            val signInIntent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
     }
 
     @Deprecated("Deprecated onActivityResult Method")
@@ -99,7 +114,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account.idToken)
             } catch (e: ApiException) {
-                showToast("Google Sign In Failed")
+                showToast(resources.getString(R.string.google_sign_in_failed))
             }
         }
     }
@@ -112,7 +127,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                     val user = FirebaseAuth.getInstance().currentUser
                     getIdToken(user!!)
                 } else {
-                    showToast("Authentication Failed")
+                    showToast(resources.getString(R.string.authentication_failed))
                 }
             }
     }
@@ -124,7 +139,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                     val idToken = task.result?.token
                     loginViewModel.userLoginWithGoogle(LoginGoogleBody(idToken!!))
                 } else {
-                    showToast("Getting Id Token Failed")
+                    showToast(resources.getString(R.string.get_token_failed))
                 }
             }
         }
@@ -134,8 +149,18 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         loginViewModel.loginResponse.observe(this) { response ->
             lifecycleScope.launch {
                 userPreference.updateUserLoginStatus(true)
+                userPreference.updateUsernameAndEmail(response.user.name, userEmail)
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
+            }
+        }
+
+        loginViewModel.loginGoogleResponse.observe(this) { response ->
+            lifecycleScope.launch {
+                userPreference.updateUserLoginStatus(true)
                 userPreference.updateUsernameAndEmail(response.user.name, response.user.email)
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
             }
         }
 
@@ -155,7 +180,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
         loginViewModel.exception.observe(this) { exception ->
             if (exception) {
-                showToast("No Internet Connection")
+                showToast(resources.getString(R.string.no_internet_connection))
                 loginViewModel.resetExceptionValue()
             }
         }

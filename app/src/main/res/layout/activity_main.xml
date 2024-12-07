@@ -38,6 +38,7 @@
         android:id="@+id/btn_add"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:contentDescription="@string/add_transaction_data"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

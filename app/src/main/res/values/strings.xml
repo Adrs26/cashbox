@@ -12,6 +12,27 @@
     <string name="expense">Pengeluaran</string>
     <string name="income_category">Kategori Pemasukan</string>
     <string name="expense_category">Kategori Pengeluaran</string>
+    <string name="cashbox_application_logo">Logo aplikasi Cashbox</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Masuk</string>
+    <string name="do_not_have_account">Belum punya akun?</string>
+    <string name="register_here">Daftar disini</string>
+    <string name="login_with_google">Masuk dengan Google</string>
+    <string name="google_logo">Logo Google</string>
+    <string name="data_can_not_be_empty">Data can\'t be empty</string>
+    <string name="invalid_email_format">Invalid email format</string>
+    <string name="google_sign_in_failed">Google Sign In failed</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="get_token_failed">Getting id token failed</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="register_account">Daftar Akun</string>
+    <string name="name">Nama</string>
+    <string name="confirmation_password">Konfirmasi Password</string>
+    <string name="register">Daftar</string>
+    <string name="back_to_previous_menu">Kembali ke menu sebelumnya</string>
+    <string name="add_transaction_data">Tambah data transaksi</string>
+    <string name="incorrect_confirmation_password">Incorrect confirmation password</string>
 
     <string-array name="income_categories">
         <item>Gaji</item>

@@ -25,6 +25,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "WEB_CLIENT_ID", "\"806241381486-ihesjpl253igvodd3css54jijjh02lfs.apps.googleusercontent.com\"")
+            buildConfigField("String", "BASE_URL_API", "\"https://cashbox-377e3.et.r.appspot.com/\"")
+        }
+        debug {
+            buildConfigField("String", "WEB_CLIENT_ID", "\"806241381486-ihesjpl253igvodd3css54jijjh02lfs.apps.googleusercontent.com\"")
+            buildConfigField("String", "BASE_URL_API", "\"https://cashbox-377e3.et.r.appspot.com/\"")
         }
     }
     compileOptions {
@@ -37,6 +43,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        mlModelBinding = true
     }
 }
 
@@ -49,6 +56,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.viewbindingpropertydelegate.noreflection)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -58,6 +66,8 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.glide)
     implementation(libs.mpandroidchart)
+    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.metadata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

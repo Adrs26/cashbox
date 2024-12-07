@@ -57,3 +57,8 @@ fun String.getColorResource(): String {
         else -> ""
     }
 }
+
+fun String.isEmailMatches(): Boolean {
+    val emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$".toRegex()
+    return this.matches(emailRegex)
+}

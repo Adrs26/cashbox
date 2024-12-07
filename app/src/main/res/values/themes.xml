@@ -2,6 +2,13 @@
     <style name="Base.Theme.CashBox" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@color/background</item>
     </style>
+    
+    <style name="SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#94B9FF</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="android:statusBarColor">#94B9FF</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.CashBox</item>
+    </style>
 
     <style name="CustomBottomNavTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/inter_medium</item>
