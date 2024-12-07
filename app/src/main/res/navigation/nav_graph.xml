@@ -37,8 +37,12 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_nav_home_to_nav_budgeting"
-            app:destination="@id/nav_budgeting" />
+            android:id="@+id/action_nav_home_to_nav_edit_transaction"
+            app:destination="@id/nav_edit_transaction"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -49,7 +53,15 @@
     <fragment
         android:id="@+id/nav_transaction"
         android:name="com.cashbox.android.ui.transaction.TransactionFragment"
-        tools:layout="@layout/fragment_transaction"/>
+        tools:layout="@layout/fragment_transaction">
+        <action
+            android:id="@+id/action_nav_transaction_to_nav_edit_transaction"
+            app:destination="@id/nav_edit_transaction"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_analysis"
@@ -255,4 +267,9 @@
         android:id="@+id/nav_save_money_source"
         android:name="com.cashbox.android.ui.goals.SaveMoneySourceFragment"
         tools:layout="@layout/fragment_money_source" />
+
+    <fragment
+        android:id="@+id/nav_edit_transaction"
+        android:name="com.cashbox.android.ui.transaction.EditTransactionFragment"
+        tools:layout="@layout/fragment_edit_transaction" />
 </navigation>

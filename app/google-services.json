@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "806241381486",
+    "project_id": "cashbox-377e3",
+    "storage_bucket": "cashbox-377e3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806241381486:android:ac104eedfda0ceeb64ca7f",
+        "android_client_info": {
+          "package_name": "com.cashbox.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806241381486-8hao6qh89d59k4fqu4fdlmlk7aiqa8fb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cashbox.android",
+            "certificate_hash": "db0305ed2921a44b62cdf530dadf19a28b9409bf"
+          }
+        },
+        {
+          "client_id": "806241381486-ihesjpl253igvodd3css54jijjh02lfs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXq5xDwuqdGOVlV2d_KdAcuIUUHzf7J-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806241381486-ihesjpl253igvodd3css54jijjh02lfs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
