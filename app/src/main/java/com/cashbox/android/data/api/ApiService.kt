@@ -1,8 +1,12 @@
 package com.cashbox.android.data.api
 
+import com.cashbox.android.data.model.AnalysisData
+import com.cashbox.android.data.model.AnalysisHeader
+import com.cashbox.android.data.model.ExpenseBody
 import com.cashbox.android.data.model.GoalsBody
 import com.cashbox.android.data.model.GoalsListHeader
 import com.cashbox.android.data.model.GoalsSingleHeader
+import com.cashbox.android.data.model.IncomeBody
 import com.cashbox.android.data.model.LoginBody
 import com.cashbox.android.data.model.LoginGoogleBody
 import com.cashbox.android.data.model.LoginResponse
@@ -10,7 +14,6 @@ import com.cashbox.android.data.model.RegisterBody
 import com.cashbox.android.data.model.RegisterResponse
 import com.cashbox.android.data.model.SaveBody
 import com.cashbox.android.data.model.SaveHeader
-import com.cashbox.android.data.model.TransactionBody
 import com.cashbox.android.data.model.TransactionHeader
 import com.cashbox.android.data.model.TransactionResponse
 import com.cashbox.android.data.model.WalletAddBody
@@ -56,10 +59,16 @@ interface ApiService {
     suspend fun getAllTransaction(): TransactionHeader
 
     @POST("api/pemasukan")
-    suspend fun addIncomeTransaction(@Body transactionBody: TransactionBody): TransactionResponse
+    suspend fun addIncomeTransaction(@Body incomeBody: IncomeBody): TransactionResponse
 
     @POST("api/pengeluaran")
-    suspend fun addExpenseTransaction(@Body transactionBody: TransactionBody): TransactionResponse
+    suspend fun addExpenseTransaction(@Body expenseBody: ExpenseBody): TransactionResponse
+
+    @GET("api/transaksi/bulan")
+    suspend fun getTransactionOnSpecificMonth(
+        @Query("bulan") month: Int,
+        @Query("tahun") year: Int
+    ): AnalysisHeader
 
     @GET("api/goals")
     suspend fun getAllGoals(): GoalsListHeader

@@ -46,6 +46,7 @@ class TransactionMoneySourceFragment : Fragment(R.layout.fragment_money_source) 
             override fun onItemClick(id: Int, name: String) {
                 addTransactionViewModel.setTransactionSource(name)
                 DataHelper.walletId = id
+                DataHelper.walletName = name
                 findNavController().popBackStack()
             }
         })

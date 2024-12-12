@@ -5,18 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.cashbox.android.data.model.AnalysisData
 import com.cashbox.android.data.model.Example
 import com.cashbox.android.databinding.ItemAnalysisBinding
 import com.cashbox.android.utils.NumberFormatHelper
 import com.cashbox.android.utils.getImageResource
+import com.cashbox.android.utils.toExpenseCategoryText
 
-class AnalysisAdapter : ListAdapter<Example, AnalysisAdapter.ItemViewHolder>(
-    object : DiffUtil.ItemCallback<Example>() {
-        override fun areItemsTheSame(oldItem: Example, newItem: Example): Boolean {
+class AnalysisAdapter : ListAdapter<AnalysisData, AnalysisAdapter.ItemViewHolder>(
+    object : DiffUtil.ItemCallback<AnalysisData>() {
+        override fun areItemsTheSame(oldItem: AnalysisData, newItem: AnalysisData): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Example, newItem: Example): Boolean {
+        override fun areContentsTheSame(oldItem: AnalysisData, newItem: AnalysisData): Boolean {
             return oldItem == newItem
         }
     }
@@ -38,9 +40,11 @@ class AnalysisAdapter : ListAdapter<Example, AnalysisAdapter.ItemViewHolder>(
     inner class ItemViewHolder(
         private val itemBinding: ItemAnalysisBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(data: Example) {
-            itemBinding.ivCategory.setImageResource(data.category.getImageResource())
-            itemBinding.tvTitle.text = data.category
+        fun bind(data: AnalysisData) {
+            itemBinding.ivCategory.setImageResource(
+                data.category.toExpenseCategoryText().getImageResource()
+            )
+            itemBinding.tvTitle.text = data.category.toExpenseCategoryText()
             itemBinding.tvAmount.text = NumberFormatHelper.formatToRupiah(data.amount)
 
             val percentage = ((data.amount.toDouble() / getTotalAmount()) * 100)

@@ -34,7 +34,7 @@ class GoalsViewModel(private val goalsRepository: GoalsRepository): ViewModel() 
     fun getListGoals(uid: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _saves.postValue(goalsRepository.getAllSaves().data)
+                _saves.postValue(goalsRepository.getAllSaves().data.filter { it.uid == uid })
 
                 val goals = goalsRepository.getAllGoals().data.filter { it.uid == uid }
                 val saves = goalsRepository.getAllSaves().data.filter { it.uid == uid }

@@ -45,11 +45,11 @@
             android:textColor="@color/blue"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_last_seven_days"
+            app:layout_constraintEnd_toStartOf="@id/btn_last_month"
             app:layout_constraintTop_toBottomOf="@id/header_title"/>
 
         <TextView
-            android:id="@+id/btn_last_seven_days"
+            android:id="@+id/btn_last_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="4dp"
@@ -58,15 +58,15 @@
             android:paddingVertical="4dp"
             android:background="@drawable/bg_rounded_corner_white"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="7 Hari Terakhir"
+            android:text="Bulan lalu"
             android:textColor="@color/blue"
             android:textSize="11sp"
             app:layout_constraintStart_toEndOf="@id/btn_this_month"
-            app:layout_constraintEnd_toStartOf="@id/btn_last_thirty_days"
+            app:layout_constraintEnd_toStartOf="@id/btn_last_two_month"
             app:layout_constraintTop_toBottomOf="@id/header_title"/>
 
         <TextView
-            android:id="@+id/btn_last_thirty_days"
+            android:id="@+id/btn_last_two_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -76,10 +76,10 @@
             android:paddingVertical="4dp"
             android:background="@drawable/bg_rounded_corner_white"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="30 Hari Terakhir"
+            android:text="2 Bulan lalu"
             android:textColor="@color/blue"
             android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@id/btn_last_seven_days"
+            app:layout_constraintStart_toEndOf="@id/btn_last_month"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_title"/>
 
@@ -91,7 +91,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_last_seven_days"/>
+            app:layout_constraintTop_toBottomOf="@id/btn_last_month"/>
 
         <TextView
             android:id="@+id/tv_total_expense"

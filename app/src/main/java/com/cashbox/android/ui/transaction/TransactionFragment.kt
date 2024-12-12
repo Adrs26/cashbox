@@ -17,6 +17,7 @@ import com.cashbox.android.data.repository.TransactionRepository
 import com.cashbox.android.databinding.FragmentTransactionBinding
 import com.cashbox.android.ui.main.MainActivity
 import com.cashbox.android.ui.viewmodel.TransactionViewModelFactory
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class TransactionFragment : Fragment(R.layout.fragment_transaction) {
@@ -54,9 +55,11 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private fun setupDataStore() {
         viewLifecycleOwner.lifecycleScope.launch {
-            userPreference.userToken.collect {
-                setupViewModel(it)
-                transactionViewModel.getAllTransaction()
+            combine(userPreference.userToken, userPreference.userUid) { token, uid ->
+                Pair(token, uid)
+            }.collect { (token, uid) ->
+                setupViewModel(token)
+                transactionViewModel.getAllTransaction(uid)
                 setupObservers()
             }
         }

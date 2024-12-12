@@ -1,6 +1,7 @@
 package com.cashbox.android.ui.transaction
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -14,7 +15,8 @@ import com.cashbox.android.R
 import com.cashbox.android.data.api.ApiClientBearer
 import com.cashbox.android.data.datastore.DataStoreInstance
 import com.cashbox.android.data.datastore.UserPreference
-import com.cashbox.android.data.model.TransactionBody
+import com.cashbox.android.data.model.ExpenseBody
+import com.cashbox.android.data.model.IncomeBody
 import com.cashbox.android.data.repository.TransactionRepository
 import com.cashbox.android.databinding.FragmentAddTransactionBinding
 import com.cashbox.android.ui.main.MainActivity
@@ -55,9 +57,11 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
 
             btnIncome.setOnClickListener {
                 addTransactionViewModel.changeTransactionType(resources.getString(R.string.income))
+                DataHelper.transactionType = resources.getString(R.string.income)
             }
             btnExpense.setOnClickListener {
                 addTransactionViewModel.changeTransactionType(resources.getString(R.string.expense))
+                DataHelper.transactionType = resources.getString(R.string.expense)
             }
             btnAdd.setOnClickListener {
                 val description = binding.edtDescription.text.toString()
@@ -73,17 +77,31 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
                 } else {
                     viewLifecycleOwner.lifecycleScope.launch {
                         userPreference.userUid.collect {
-                            addTransactionViewModel.addTransaction(
-                                TransactionBody(
-                                    it,
-                                    description,
-                                    amount,
-                                    DataHelper.walletId,
-                                    date,
-                                    category,
-                                    source
+                            if (DataHelper.transactionType == resources.getString(R.string.income)) {
+                                addTransactionViewModel.addIncomeTransaction(
+                                    IncomeBody(
+                                        it,
+                                        description,
+                                        amount,
+                                        DataHelper.walletId,
+                                        date,
+                                        category,
+                                        DataHelper.walletName
+                                    )
                                 )
-                            )
+                            } else {
+                                addTransactionViewModel.addExpenseTransaction(
+                                    ExpenseBody(
+                                        it,
+                                        description,
+                                        amount,
+                                        DataHelper.walletId,
+                                        date,
+                                        category,
+                                        DataHelper.walletName
+                                    )
+                                )
+                            }
                         }
                     }
                 }
@@ -151,9 +169,12 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
             binding.btnExpense.background = ContextCompat.getDrawable(requireContext(), background)
         }
         addTransactionViewModel.responseMessage.observe(viewLifecycleOwner) { message ->
-            showToast(message)
-            findNavController().popBackStack()
-            (activity as MainActivity).showBottomNav()
+            if (message.isNotEmpty()) {
+                showToast(message)
+                findNavController().popBackStack()
+                (activity as MainActivity).showBottomNav()
+                addTransactionViewModel.resetResponseMessageValue()
+            }
         }
         addTransactionViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {

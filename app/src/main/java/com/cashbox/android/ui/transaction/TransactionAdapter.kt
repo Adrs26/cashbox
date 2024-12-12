@@ -70,7 +70,8 @@ class TransactionAdapter(
             }
 
             itemBinding.tvTitle.text = data.description
-            itemBinding.tvDate.text = DateHelper.convertDateToIndonesianFormat(data.date)
+            itemBinding.tvDate.text = DateHelper
+                .convertDateToIndonesianFormat(data.date.substring(0, 10))
             itemBinding.tvAmount.text = NumberFormatHelper.formatToRupiah(data.amount)
             itemBinding.tvSource.text = data.sourceName
 

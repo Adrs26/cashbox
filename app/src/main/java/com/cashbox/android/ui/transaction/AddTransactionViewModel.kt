@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cashbox.android.R
-import com.cashbox.android.data.model.TransactionBody
+import com.cashbox.android.data.model.ExpenseBody
+import com.cashbox.android.data.model.IncomeBody
 import com.cashbox.android.data.model.WalletData
 import com.cashbox.android.data.repository.TransactionRepository
 import kotlinx.coroutines.Dispatchers
@@ -68,15 +69,12 @@ class AddTransactionViewModel(
         }
     }
 
-    fun addTransaction(transactionBody: TransactionBody) {
+    fun addIncomeTransaction(incomeBody: IncomeBody) {
         _isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _responseMessage.postValue(
-                    transactionRepository.addTransaction(
-                        transactionType.value!!,
-                        transactionBody
-                    ).message
+                    transactionRepository.addIncomeTransaction(incomeBody).message
                 )
                 _exception.postValue(false)
             } catch (e: Exception) {
@@ -86,5 +84,26 @@ class AddTransactionViewModel(
                 _isLoading.postValue(false)
             }
         }
+    }
+
+    fun addExpenseTransaction(expenseBody: ExpenseBody) {
+        _isLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _responseMessage.postValue(
+                    transactionRepository.addExpenseTransaction(expenseBody).message
+                )
+                _exception.postValue(false)
+            } catch (e: Exception) {
+                _exception.postValue(true)
+                message.postValue(e.toString())
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
+    fun resetResponseMessageValue() {
+        _responseMessage.value = ""
     }
 }

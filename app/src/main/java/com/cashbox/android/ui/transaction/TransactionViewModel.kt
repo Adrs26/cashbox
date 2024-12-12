@@ -16,10 +16,12 @@ class TransactionViewModel(private val transactionRepository: TransactionReposit
     val transaction: LiveData<List<TransactionData>> = _transaction
     val exception: LiveData<Boolean> = _exception
 
-    fun getAllTransaction() {
+    fun getAllTransaction(uid: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _transaction.postValue(transactionRepository.getAllTransaction().data)
+                _transaction.postValue(
+                    transactionRepository.getAllTransaction().data.filter { it.uid == uid }
+                )
                 _exception.postValue(false)
             } catch (e: Exception) {
                 _exception.postValue(true)

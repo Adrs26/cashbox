@@ -3,10 +3,9 @@ package com.cashbox.android.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.cashbox.android.data.repository.TransactionRepository
-import com.cashbox.android.data.repository.WalletRepository
+import com.cashbox.android.ui.analysis.AnalysisViewModel
 import com.cashbox.android.ui.transaction.AddTransactionViewModel
 import com.cashbox.android.ui.transaction.TransactionViewModel
-import com.cashbox.android.ui.wallet.WalletViewModel
 
 @Suppress("UNCHECKED_CAST")
 class TransactionViewModelFactory(
@@ -19,6 +18,9 @@ class TransactionViewModelFactory(
             }
             modelClass.isAssignableFrom(AddTransactionViewModel::class.java) -> {
                 AddTransactionViewModel(transactionRepository) as T
+            }
+            modelClass.isAssignableFrom(AnalysisViewModel::class.java) -> {
+                AnalysisViewModel(transactionRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class")
         }

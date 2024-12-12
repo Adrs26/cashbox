@@ -55,6 +55,7 @@
     <string name="transaction_category">Kategori transaksi</string>
     <string name="to_target_amount">dari %1$s</string>
     <string name="target_difference_day">%1$d hari lagi</string>
+    <string name="transaction_not_found">Data transaksi tidak ada</string>
 
     <string-array name="income_categories">
         <item>Gaji</item>
