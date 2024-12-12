@@ -5,18 +5,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.cashbox.android.data.model.SaveData
 import com.cashbox.android.databinding.ItemSaveBinding
+import com.cashbox.android.utils.DateHelper.convertDateToIndonesianFormat
+import com.cashbox.android.utils.NumberFormatHelper.formatToRupiah
 
 class SaveAdapter(
     private val onItemClickListener: OnItemClickListener
-) : ListAdapter<Int, SaveAdapter.ItemViewHolder>(
-    object : DiffUtil.ItemCallback<Int>() {
-        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return oldItem == newItem
+) : ListAdapter<SaveData, SaveAdapter.ItemViewHolder>(
+    object : DiffUtil.ItemCallback<SaveData>() {
+        override fun areItemsTheSame(oldItem: SaveData, newItem: SaveData): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: SaveData, newItem: SaveData): Boolean {
+            return newItem == oldItem
         }
     }
 ) {
@@ -33,14 +36,18 @@ class SaveAdapter(
     inner class ItemViewHolder(
         private val itemBinding: ItemSaveBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(data: Int) {
+        fun bind(data: SaveData) {
+            itemBinding.tvTitle.text = data.description
+            itemBinding.tvDate.text = convertDateToIndonesianFormat(data.date.substring(0, 10))
+            itemBinding.tvAmount.text = formatToRupiah(data.amount)
+
             itemBinding.root.setOnClickListener {
-                onItemClickListener.onItemClick()
+                onItemClickListener.onItemClick(data.id, data.description, data.amount, data.date)
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(id: Int, description: String, amount: Long, date: String)
     }
 }

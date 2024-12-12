@@ -2,11 +2,14 @@ package com.cashbox.android.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.cashbox.android.R
 import com.cashbox.android.data.datastore.DataStoreInstance
 import com.cashbox.android.data.datastore.UserPreference
@@ -30,6 +33,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         setupButtons()
         setupGreetingText()
+        setupUserData()
         setupAdapter()
     }
 
@@ -66,10 +70,25 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             else -> resources.getString(R.string.good_night)
         }
         binding.tvGreeting.text = greetingMessage
+    }
 
+    private fun setupUserData() {
         viewLifecycleOwner.lifecycleScope.launch {
-            userPreference.username.collect {
-                binding.tvUsername.text = it
+            launch {
+                userPreference.username.collect {
+                    binding.tvUsername.text = it
+                }
+            }
+            launch {
+                userPreference.userPhoto.collect {
+                    Glide.with(requireContext())
+                        .load(it.toUri())
+                        .centerCrop()
+                        .transform(CircleCrop())
+                        .placeholder(R.drawable.ic_account)
+                        .error(R.drawable.ic_account)
+                        .into(binding.ivProfile)
+                }
             }
         }
     }
@@ -83,7 +102,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
         binding.rvLastTransaction.layoutManager = LinearLayoutManager(requireContext())
         binding.rvLastTransaction.adapter = transactionAdapter
-        transactionAdapter.submitList(listOf(1, 1, 1))
 
         goalsAdapter = GoalsAdapter(object : GoalsAdapter.OnItemClickListener {
             override fun onItemClick() {
@@ -93,6 +111,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
         binding.rvGoalsTracker.layoutManager = LinearLayoutManager(requireContext())
         binding.rvGoalsTracker.adapter = goalsAdapter
-        goalsAdapter.submitList(listOf(1, 1, 1))
     }
 }

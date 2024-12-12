@@ -78,8 +78,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             R.id.nav_add_goals,
             R.id.nav_edit_goals,
             R.id.nav_add_save,
-            R.id.nav_edit_save,
-            R.id.nav_save_money_source
+            R.id.nav_edit_save
         )
     }
 

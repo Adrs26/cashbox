@@ -4,10 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.cashbox.android.R
 import com.cashbox.android.data.datastore.DataStoreInstance
 import com.cashbox.android.data.datastore.UserPreference
@@ -27,6 +30,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         super.onViewCreated(view, savedInstanceState)
         setupButtons()
         setupBackPressedDispatcher()
+        setupUserData()
     }
 
     private fun setupButtons() {
@@ -48,7 +52,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             }
             btnLogout.setOnClickListener {
                 viewLifecycleOwner.lifecycleScope.launch {
-                    userPreference.updateUserLoginStatus(false)
+                    userPreference.updateUserLoginStatusAndToken(false, "")
+                    userPreference.updateUserData("", "", "", "")
                     startActivity(Intent(requireContext(), LoginActivity::class.java))
                     requireActivity().finish()
                 }
@@ -65,5 +70,31 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 }
             }
         )
+    }
+
+    private fun setupUserData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            launch {
+                userPreference.userPhoto.collect {
+                    Glide.with(requireContext())
+                        .load(it.toUri())
+                        .centerCrop()
+                        .transform(CircleCrop())
+                        .placeholder(R.drawable.ic_account)
+                        .error(R.drawable.ic_account)
+                        .into(binding.ivProfile)
+                }
+            }
+            launch {
+                userPreference.username.collect {
+                    binding.tvUsername.text = it
+                }
+            }
+            launch {
+                userPreference.userEmail.collect {
+                    binding.tvEmail.text = it
+                }
+            }
+        }
     }
 }

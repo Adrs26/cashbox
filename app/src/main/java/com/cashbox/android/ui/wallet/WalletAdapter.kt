@@ -5,17 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.cashbox.android.data.model.WalletData
 import com.cashbox.android.databinding.ItemWalletBinding
+import com.cashbox.android.utils.NumberFormatHelper.formatToRupiah
 
 class WalletAdapter(
     private val onItemClickListener: OnItemClickListener
-) : ListAdapter<Int, WalletAdapter.ItemViewHolder>(
-    object : DiffUtil.ItemCallback<Int>() {
-        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return oldItem == newItem
+) : ListAdapter<WalletData, WalletAdapter.ItemViewHolder>(
+    object : DiffUtil.ItemCallback<WalletData>() {
+        override fun areItemsTheSame(oldItem: WalletData, newItem: WalletData): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
+        override fun areContentsTheSame(oldItem: WalletData, newItem: WalletData): Boolean {
             return oldItem == newItem
         }
     }
@@ -33,14 +35,17 @@ class WalletAdapter(
     inner class ItemViewHolder(
         private val itemBinding: ItemWalletBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(data: Int) {
+        fun bind(data: WalletData) {
+            itemBinding.tvTitle.text = data.name
+            itemBinding.tvAmount.text = formatToRupiah(data.amount)
+
             itemBinding.root.setOnClickListener {
-                onItemClickListener.onItemClick()
+                onItemClickListener.onItemClick(data.id, data.name)
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(id: Int, name: String)
     }
 }

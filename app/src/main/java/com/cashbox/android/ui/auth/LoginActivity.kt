@@ -22,7 +22,7 @@ import com.cashbox.android.data.model.LoginGoogleBody
 import com.cashbox.android.data.repository.UserRepository
 import com.cashbox.android.databinding.ActivityLoginBinding
 import com.cashbox.android.ui.main.MainActivity
-import com.cashbox.android.ui.viewmodel.ViewModelFactory
+import com.cashbox.android.ui.viewmodel.UserViewModelFactory
 import com.cashbox.android.utils.AnimationHelper
 import com.cashbox.android.utils.isEmailMatches
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -38,13 +38,14 @@ import kotlinx.coroutines.launch
 class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     private val binding by viewBinding(ActivityLoginBinding::bind)
     private val loginViewModel by lazy {
-        val factory = ViewModelFactory(UserRepository(ApiClient.apiClient))
+        val factory = UserViewModelFactory(UserRepository(ApiClient.apiClient))
         ViewModelProvider(this, factory)[LoginViewModel::class.java]
     }
     private val userPreference by lazy {
         UserPreference(DataStoreInstance.getInstance(this))
     }
     private lateinit var googleSignInClient: GoogleSignInClient
+    private var userPhoto = ""
     private var userEmail = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,6 +126,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = FirebaseAuth.getInstance().currentUser
+                    userPhoto = user?.photoUrl.toString()
                     getIdToken(user!!)
                 } else {
                     showToast(resources.getString(R.string.authentication_failed))
@@ -148,8 +150,13 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     private fun setupObservers() {
         loginViewModel.loginResponse.observe(this) { response ->
             lifecycleScope.launch {
-                userPreference.updateUserLoginStatus(true)
-                userPreference.updateUsernameAndEmail(response.user.name, userEmail)
+                userPreference.updateUserLoginStatusAndToken(true, response.token)
+                userPreference.updateUserData(
+                    userPhoto,
+                    response.user.name,
+                    userEmail,
+                    response.user.uid
+                )
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             }
@@ -157,8 +164,13 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
         loginViewModel.loginGoogleResponse.observe(this) { response ->
             lifecycleScope.launch {
-                userPreference.updateUserLoginStatus(true)
-                userPreference.updateUsernameAndEmail(response.user.name, response.user.email)
+                userPreference.updateUserLoginStatusAndToken(true, response.token)
+                userPreference.updateUserData(
+                    userPhoto,
+                    response.user.name,
+                    response.user.email,
+                    response.user.uid
+                )
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             }

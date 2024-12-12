@@ -18,7 +18,7 @@ object DateHelper {
         }
     }
 
-    private fun convertDateToIndonesianFormat(dateString: String): String {
+    fun convertDateToIndonesianFormat(dateString: String): String {
         val date = LocalDate.parse(
             dateString,
             DateTimeFormatter.ofPattern("yyyy-[M][MM]-[d][dd]")
@@ -28,5 +28,18 @@ object DateHelper {
             Locale("id", "ID")
         )
         return date.format(indonesianDateFormat)
+    }
+
+    fun convertDateToOriginalValue(dateString: String): String {
+        val inputFormatter = DateTimeFormatter.ofPattern(
+            "d MMMM yyyy",
+            Locale("id", "ID")
+        )
+        val outputFormatter = DateTimeFormatter.ofPattern(
+            "yyyy-MM-dd",
+            Locale("id", "ID")
+        )
+        val date = LocalDate.parse(dateString, inputFormatter)
+        return date.format(outputFormatter)
     }
 }

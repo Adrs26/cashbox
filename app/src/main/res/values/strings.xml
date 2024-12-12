@@ -33,6 +33,28 @@
     <string name="back_to_previous_menu">Kembali ke menu sebelumnya</string>
     <string name="add_transaction_data">Tambah data transaksi</string>
     <string name="incorrect_confirmation_password">Incorrect confirmation password</string>
+    <string name="add_wallet">Tambah Wallet</string>
+    <string name="amount">Nominal</string>
+    <string name="edit_wallet">Edit Wallet</string>
+    <string name="delete_wallet">Hapus wallet</string>
+    <string name="save_change">Simpan Perubahan</string>
+    <string name="my_wallet">Wallet Saya</string>
+    <string name="total_balance">Total Saldo</string>
+    <string name="list_wallet">Daftar Wallet</string>
+    <string name="user_profile">Profil pengguna</string>
+    <string name="my_account">Akun Saya</string>
+    <string name="logout">Keluar</string>
+    <string name="edit_account">Edit Akun</string>
+    <string name="number">Nomor Telepon</string>
+    <string name="birth_date">Tanggal Lahir</string>
+    <string name="gender">Gender</string>
+    <string name="male_radio_button">Radio button laki-laki</string>
+    <string name="female_radio_button">Radio button perempuan</string>
+    <string name="male">Laki-laki</string>
+    <string name="female">Perempuan</string>
+    <string name="transaction_category">Kategori transaksi</string>
+    <string name="to_target_amount">dari %1$s</string>
+    <string name="target_difference_day">%1$d hari lagi</string>
 
     <string-array name="income_categories">
         <item>Gaji</item>

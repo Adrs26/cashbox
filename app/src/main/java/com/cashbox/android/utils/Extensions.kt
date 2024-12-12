@@ -58,6 +58,57 @@ fun String.getColorResource(): String {
     }
 }
 
+fun String.getNumberId(): Int {
+    return when (this) {
+        "Gaji", "Makanan & Minuman" -> 1
+        "Bonus", "Transportasi" -> 2
+        "Usaha Sampingan", "Kesehatan" -> 3
+        "Investasi (Pemasukan)", "Tagihan & Utilitas" -> 4
+        "Pemasukan Lain", "Pendidikan" -> 5
+        "Hiburan" -> 6
+        "Belanja" -> 7
+        "Investasi (Pengeluaran)" -> 8
+        "Perawatan Pribadi" -> 9
+        "Donasi" -> 10
+        "Asuransi" -> 11
+        "Kebutuhan Rumah Tangga" -> 12
+        "Pajak" -> 13
+        "Pengeluaran Lain" -> 14
+        else -> 0
+    }
+}
+
+fun Int.toIncomeCategoryText(): String {
+    return when (this) {
+        1 -> "Gaji"
+        2 -> "Bonus"
+        3 -> "Usaha Sampingan"
+        4 -> "Investasi (Pemasukan)"
+        5 -> "Pemasukan lain"
+        else -> ""
+    }
+}
+
+fun Int.toExpenseCategoryText(): String {
+    return when (this) {
+        1 -> "Makanan & Minuman"
+        2 -> "Transportasi"
+        3 -> "Kesehatan"
+        4 -> "Tagihan & Utilitas"
+        5 -> "Pendidikan"
+        6 -> "Hiburan"
+        7 -> "Belanja"
+        8 -> "Investasi (Pengeluaran)"
+        9 -> "Perawatan Pribadi"
+        10 -> "Donasi"
+        11 -> "Asuransi"
+        12 -> "Kebutuhan Rumah Tangga"
+        13 -> "Pajak"
+        14 -> "Pengeluaran Lain"
+        else -> ""
+    }
+}
+
 fun String.isEmailMatches(): Boolean {
     val emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$".toRegex()
     return this.matches(emailRegex)

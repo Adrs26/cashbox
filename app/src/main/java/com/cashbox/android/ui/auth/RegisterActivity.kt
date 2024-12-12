@@ -14,7 +14,7 @@ import com.cashbox.android.data.api.ApiClient
 import com.cashbox.android.data.model.RegisterBody
 import com.cashbox.android.data.repository.UserRepository
 import com.cashbox.android.databinding.ActivityRegisterBinding
-import com.cashbox.android.ui.viewmodel.ViewModelFactory
+import com.cashbox.android.ui.viewmodel.UserViewModelFactory
 import com.cashbox.android.utils.AnimationHelper
 import com.cashbox.android.utils.isEmailMatches
 
@@ -23,7 +23,7 @@ import com.cashbox.android.utils.isEmailMatches
 class RegisterActivity : AppCompatActivity(R.layout.activity_register) {
     private val binding by viewBinding(ActivityRegisterBinding::bind)
     private val registerViewModel by lazy {
-        val factory = ViewModelFactory(UserRepository(ApiClient.apiClient))
+        val factory = UserViewModelFactory(UserRepository(ApiClient.apiClient))
         ViewModelProvider(this, factory)[RegisterViewModel::class.java]
     }
 

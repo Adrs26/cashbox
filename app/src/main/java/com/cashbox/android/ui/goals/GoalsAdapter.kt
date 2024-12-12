@@ -5,17 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.cashbox.android.data.model.ListGoals
 import com.cashbox.android.databinding.ItemGoalsBinding
+import com.cashbox.android.utils.NumberFormatHelper.formatToRupiah
 
 class GoalsAdapter(
     private val onItemClickListener: OnItemClickListener
-) : ListAdapter<Int, GoalsAdapter.ItemViewHolder>(
-    object : DiffUtil.ItemCallback<Int>() {
-        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return oldItem == newItem
+) : ListAdapter<ListGoals, GoalsAdapter.ItemViewHolder>(
+    object : DiffUtil.ItemCallback<ListGoals>() {
+        override fun areItemsTheSame(oldItem: ListGoals, newItem: ListGoals): Boolean {
+            return oldItem.idGoals == newItem.idGoals
         }
 
-        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
+        override fun areContentsTheSame(oldItem: ListGoals, newItem: ListGoals): Boolean {
             return oldItem == newItem
         }
     }
@@ -33,14 +35,21 @@ class GoalsAdapter(
     inner class ItemViewHolder(
         private val itemBinding: ItemGoalsBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(data: Int) {
+        fun bind(data: ListGoals) {
+            itemBinding.tvTitle.text = data.name
+            itemBinding.tvCurrent.text = formatToRupiah(data.currentAmount)
+            itemBinding.tvTarget.text = formatToRupiah(data.targetAmount)
+
+            val percentageProgress = (data.currentAmount.toDouble() / data.targetAmount) * 100
+            itemBinding.pbBudgeting.progress = percentageProgress.toInt()
+
             itemBinding.root.setOnClickListener {
-                onItemClickListener.onItemClick()
+                onItemClickListener.onItemClick(data.idGoals, data.name, data.targetAmount)
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(id: Int, name: String, amount: Long)
     }
 }

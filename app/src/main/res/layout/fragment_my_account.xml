@@ -14,6 +14,7 @@
         android:padding="4dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back"
+        android:contentDescription="@string/back_to_previous_menu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -24,7 +25,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="Akun Saya"
+        android:text="@string/my_account"
         android:textSize="16sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/ib_back"
@@ -36,6 +37,7 @@
         android:layout_height="128dp"
         android:layout_marginVertical="24dp"
         android:src="@drawable/ic_account"
+        android:contentDescription="@string/user_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_my_account"/>
@@ -54,13 +56,14 @@
         <ImageView
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@drawable/ic_pencil"/>
+            android:src="@drawable/ic_pencil"
+            android:contentDescription="@string/edit_account"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Edit Akun"
+            android:text="@string/edit_account"
             android:textColor="@color/blue"
             android:textSize="14sp"/>
     </LinearLayout>
@@ -81,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Nama"
+            android:text="@string/name"
             android:textColor="@color/black"
             android:textSize="11sp"/>
 
@@ -91,9 +94,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/inter_regular"
-            android:text="User"
             android:textColor="@color/black"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:text="User"/>
     </LinearLayout>
 
     <LinearLayout
@@ -112,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Email"
+            android:text="@string/email"
             android:textColor="@color/black"
             android:textSize="11sp"/>
 
@@ -122,9 +125,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/inter_regular"
-            android:text="user@gmail.com"
             android:textColor="@color/black"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:text="user@gmail.com"/>
     </LinearLayout>
 
     <LinearLayout
@@ -143,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Nomor Telepon"
+            android:text="@string/number"
             android:textColor="@color/black"
             android:textSize="11sp"/>
 
@@ -153,9 +156,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/inter_regular"
-            android:text="012345678900"
             android:textColor="@color/black"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:text="081234567890"/>
     </LinearLayout>
 
     <LinearLayout
@@ -174,7 +177,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Tanggal Lahir"
+            android:text="@string/birth_date"
             android:textColor="@color/black"
             android:textSize="11sp"/>
 
@@ -184,9 +187,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/inter_regular"
-            android:text="31 Februari 2000"
             android:textColor="@color/black"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:text="21 Agustus 2024"/>
     </LinearLayout>
 
     <LinearLayout
@@ -205,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Gender"
+            android:text="@string/gender"
             android:textColor="@color/black"
             android:textSize="11sp"/>
 
@@ -215,8 +218,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Laki-laki"
             android:textColor="@color/black"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:text="@string/male"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

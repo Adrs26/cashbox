@@ -3,28 +3,50 @@ package com.cashbox.android.ui.transaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.cashbox.android.R
+import com.cashbox.android.data.model.TransactionBody
+import com.cashbox.android.data.model.WalletData
+import com.cashbox.android.data.repository.TransactionRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class AddTransactionViewModel : ViewModel() {
+class AddTransactionViewModel(
+    private val transactionRepository: TransactionRepository
+) : ViewModel() {
     private val _transactionType = MutableLiveData<String>().apply { value = "Pemasukan" }
-    val transactionType: LiveData<String> = _transactionType
-
     private val _transactionCategory = MutableLiveData<String>()
-    val transactionCategory: LiveData<String> = _transactionCategory
-
+    private val _transactionSource = MutableLiveData<String>()
+    private val _wallet = MutableLiveData<List<WalletData>>()
+    private val _responseMessage = MutableLiveData<String>()
     private val _incomeButtonBackground = MutableLiveData<Int>()
-    val incomeButtonBackground: LiveData<Int> = _incomeButtonBackground
-
     private val _expenseButtonBackground = MutableLiveData<Int>()
+    private val _isLoading = MutableLiveData<Boolean>()
+    private val _exception = MutableLiveData<Boolean>()
+
+    val transactionType: LiveData<String> = _transactionType
+    val transactionCategory: LiveData<String> = _transactionCategory
+    val transactionSource: LiveData<String> = _transactionSource
+    val wallet: LiveData<List<WalletData>> = _wallet
+    val responseMessage: LiveData<String> = _responseMessage
+    val incomeButtonBackground: LiveData<Int> = _incomeButtonBackground
     val expenseButtonBackground: LiveData<Int> = _expenseButtonBackground
+    val isLoading: LiveData<Boolean> = _isLoading
+    val exception: LiveData<Boolean> = _exception
+
+    val message = MutableLiveData<String>()
 
     fun changeTransactionType(transactionType: String) {
-        this._transactionType.value = transactionType
+        _transactionType.value = transactionType
         updateButtonBackground(transactionType)
     }
 
     fun setTransactionCategory(transactionCategory: String) {
-        this._transactionCategory.value = transactionCategory
+        _transactionCategory.value = transactionCategory
+    }
+
+    fun setTransactionSource(transactionSource: String) {
+        _transactionSource.value = transactionSource
     }
 
     private fun updateButtonBackground(transactionType: String) {
@@ -33,5 +55,36 @@ class AddTransactionViewModel : ViewModel() {
             R.drawable.bg_btn_white
         _expenseButtonBackground.value = if (isIncome) R.drawable.bg_btn_white else
             R.drawable.bg_btn_light_blue
+    }
+
+    fun getAllWallet(uid: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _wallet.postValue(transactionRepository.getAllWallet().data.filter { it.uid == uid })
+                _exception.postValue(false)
+            } catch (e: Exception) {
+                _exception.postValue(true)
+            }
+        }
+    }
+
+    fun addTransaction(transactionBody: TransactionBody) {
+        _isLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _responseMessage.postValue(
+                    transactionRepository.addTransaction(
+                        transactionType.value!!,
+                        transactionBody
+                    ).message
+                )
+                _exception.postValue(false)
+            } catch (e: Exception) {
+                _exception.postValue(true)
+                message.postValue(e.toString())
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
     }
 }

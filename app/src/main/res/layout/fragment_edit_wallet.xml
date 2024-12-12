@@ -14,6 +14,7 @@
         android:padding="4dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back"
+        android:contentDescription="@string/back_to_previous_menu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -23,7 +24,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="Edit Wallet"
+        android:text="@string/edit_wallet"
         android:textSize="16sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/ib_back"
@@ -34,7 +35,8 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="24dp"
-        android:src="@drawable/ic_expense_entertainment"
+        android:src="@drawable/ic_bg_logo"
+        android:contentDescription="@string/cashbox_application_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ib_back"/>
@@ -54,13 +56,14 @@
         <ImageView
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@drawable/ic_trash"/>
+            android:src="@drawable/ic_trash"
+            android:contentDescription="@string/delete_wallet"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Hapus Wallet"
+            android:text="@string/delete_wallet"
             android:textColor="@color/red"
             android:textSize="14sp"/>
     </LinearLayout>
@@ -72,7 +75,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="Nama"
+        android:text="@string/name"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,8 +93,11 @@
         android:textSize="14sp"
         android:textColor="@color/black"
         android:singleLine="true"
+        android:autofillHints="name"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_name"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        tools:ignore="LabelFor" />
 
     <LinearLayout
         android:id="@+id/btn_save_wallet"
@@ -109,7 +115,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Simpan Perubahan"
+            android:text="@string/save_change"
             android:textSize="16sp"
             android:textColor="@color/white" />
 
