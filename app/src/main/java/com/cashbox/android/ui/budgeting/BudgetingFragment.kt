@@ -1,60 +1,104 @@
 package com.cashbox.android.ui.budgeting
 
-import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.cashbox.android.R
+import com.cashbox.android.data.api.ApiClientBearer
+import com.cashbox.android.data.datastore.DataStoreInstance
+import com.cashbox.android.data.datastore.UserPreference
+import com.cashbox.android.data.repository.BudgetingRepository
 import com.cashbox.android.databinding.FragmentBudgetingBinding
+import com.cashbox.android.ui.main.MainActivity
+import com.cashbox.android.ui.viewmodel.BudgetingViewModelFactory
+import com.cashbox.android.utils.DataHelper
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
 
 class BudgetingFragment : Fragment(R.layout.fragment_budgeting) {
     private val binding by viewBinding(FragmentBudgetingBinding::bind)
-    private val budgetingViewModel by lazy {
-        ViewModelProvider(requireActivity())[BudgetingViewModel::class.java]
+    private lateinit var budgetingViewModel: BudgetingViewModel
+    private val userPreference by lazy {
+        UserPreference(DataStoreInstance.getInstance(requireContext()))
     }
     private lateinit var budgetingAdapter: BudgetingAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupButtons()
         setupAdapter()
-        getProgress()
-        setupObservers()
+        setupDataStore()
+    }
+
+    private fun setupButtons() {
+        binding.btnAddBudgeting.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_budgeting_to_nav_add_budgeting)
+            (activity as MainActivity).hideBottomNav()
+        }
     }
 
     private fun setupAdapter() {
-        budgetingAdapter = BudgetingAdapter()
+        budgetingAdapter = BudgetingAdapter(object : BudgetingAdapter.OnItemClickListener {
+            override fun onItemClick(ids: MutableList<Int>) {
+                DataHelper.budgetingIds = ids
+                val dialog = BudgetingConfirmationDialog {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        userPreference.userUid.collect {
+                            budgetingViewModel.getBudgeting(it)
+                        }
+                    }
+                }
+                dialog.show(parentFragmentManager, "DELETE_BUDGETING")
+            }
+        })
         binding.rvBudgeting.layoutManager = LinearLayoutManager(requireContext())
         binding.rvBudgeting.adapter = budgetingAdapter
-        budgetingAdapter.submitList(listOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
     }
 
-    private fun getProgress() {
-        budgetingViewModel.getProgress(50)
+    private fun setupDataStore() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                combine(userPreference.userToken, userPreference.userUid) { token, uid ->
+                    Pair(token, uid)
+                }.collect { (token, uid) ->
+                    setupViewModel(token)
+                    budgetingViewModel.getBudgeting(uid)
+                    setupObservers()
+                }
+            }
+        }
+    }
+
+    private fun setupViewModel(token: String) {
+        val factory = BudgetingViewModelFactory(BudgetingRepository(ApiClientBearer.create(token)))
+        budgetingViewModel = ViewModelProvider(
+            requireActivity(),
+            factory
+        )[BudgetingViewModel::class.java]
     }
 
     private fun setupObservers() {
-        budgetingViewModel.isFirstTime.observe(viewLifecycleOwner) { isFirstTime ->
-            if (isFirstTime) {
-                animateCircularProgress(budgetingViewModel.progress.value!!)
-            }
+        budgetingViewModel.budgetingData.observe(viewLifecycleOwner) { data ->
+            budgetingAdapter.submitList(data)
         }
 
-        budgetingViewModel.progress.observe(viewLifecycleOwner) { progress ->
-            binding.cpBudgeting.progress = progress
+        budgetingViewModel.exception.observe(viewLifecycleOwner) { exception ->
+            if (exception) {
+                showToast(resources.getString(R.string.no_internet_connection))
+                budgetingViewModel.resetExceptionValue()
+            }
         }
     }
 
-    private fun animateCircularProgress(progress: Int) {
-        val animator = ValueAnimator.ofInt(0, progress)
-        animator.duration = 1000
-        animator.addUpdateListener { animation ->
-            val animatedValue = animation.animatedValue as Int
-            binding.cpBudgeting.progress = animatedValue
-        }
-        animator.start()
-        budgetingViewModel.changeFirstTimeValue()
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

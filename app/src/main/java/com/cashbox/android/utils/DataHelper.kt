@@ -11,5 +11,13 @@ object DataHelper {
     var saveDescription = ""
     var saveAmount = 0L
     var saveDate = ""
+    var transactionId = 0
     var transactionType = "Pemasukan"
+    var transactionDescription = ""
+    var transactionAmount = 0L
+    var transactionCategory = 0
+    var transactionDate = ""
+    var transactionSource = 0
+    var transactionSourceName = ""
+    var budgetingIds: MutableList<Int> = mutableListOf()
 }

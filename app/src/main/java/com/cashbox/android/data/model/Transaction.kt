@@ -8,13 +8,13 @@ data class TransactionHeader(
 
 data class TransactionData(
     val uid: String,
-    @SerializedName("id_transaksi")
+    @SerializedName("id_pemasukan")
     val transactionId: Int,
     @SerializedName("deskripsi")
     val description: String,
     @SerializedName("nominal")
     val amount: Long,
-    @SerializedName("sumber")
+    @SerializedName("sumber_uang")
     val source: Int,
     @SerializedName("tanggal")
     val date: String,
@@ -56,6 +56,38 @@ data class ExpenseBody(
     val category: Int,
     @SerializedName("nama_sumber_uang")
     val sourceName: String
+)
+
+data class IncomeHeader(
+    val data: IncomeData
+)
+
+data class IncomeData(
+    @SerializedName("deskripsi")
+    val description: String,
+    @SerializedName("nominal")
+    val amount: Long,
+    @SerializedName("kategori_masuk")
+    val category: Int,
+    @SerializedName("tanggal")
+    val date: String,
+    @SerializedName("fk_sumber_uang")
+    val source: Int,
+    @SerializedName("nama_sumber_uang")
+    val sourceName: String
+)
+
+data class ExpenseData(
+    @SerializedName("deskripsi")
+    val description: String,
+    @SerializedName("nominal")
+    val amount: Long,
+    @SerializedName("kategori_keluar")
+    val category: Int,
+    @SerializedName("tanggal")
+    val date: String,
+    @SerializedName("sumber_uang")
+    val source: Int
 )
 
 data class TransactionResponse(

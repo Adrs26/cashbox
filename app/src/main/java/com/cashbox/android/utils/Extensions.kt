@@ -109,6 +109,26 @@ fun Int.toExpenseCategoryText(): String {
     }
 }
 
+fun String.toEncodingNumber(): Int {
+    return when (this) {
+        "Makanan & Minuman" -> 2
+        "Transportasi" -> 5
+        "Kesehatan" -> 1
+        "Tagihan & Utilitas" -> 3
+        "Pendidikan" -> 4
+        "Hiburan" -> 12
+        "Belanja" -> 11
+        "Investasi (Pengeluaran)" -> 9
+        "Perawatan Pribadi" -> 10
+        "Donasi" -> 8
+        "Asuransi" -> 6
+        "Kebutuhan Rumah Tangga" -> 7
+        "Pajak" -> 13
+        "Pengeluaran Lain" -> 14
+        else -> 0
+    }
+}
+
 fun String.isEmailMatches(): Boolean {
     val emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$".toRegex()
     return this.matches(emailRegex)

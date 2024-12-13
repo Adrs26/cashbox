@@ -17,6 +17,8 @@ import com.cashbox.android.data.repository.TransactionRepository
 import com.cashbox.android.databinding.FragmentTransactionBinding
 import com.cashbox.android.ui.main.MainActivity
 import com.cashbox.android.ui.viewmodel.TransactionViewModelFactory
+import com.cashbox.android.utils.DataHelper
+import com.cashbox.android.utils.NumberFormatHelper.formatToRupiah
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
@@ -44,7 +46,24 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private fun setupAdapter() {
         transactionAdapter = TransactionAdapter(object : TransactionAdapter.OnItemClickListener {
-            override fun onItemClick() {
+            override fun onItemClick(
+                id: Int,
+                description: String,
+                amount: Long,
+                category: Int,
+                date: String,
+                type: String,
+                source: Int,
+                sourceName: String
+            ) {
+                DataHelper.transactionId = id
+                DataHelper.transactionDescription = description
+                DataHelper.transactionAmount = amount
+                DataHelper.transactionCategory = category
+                DataHelper.transactionDate = date
+                DataHelper.transactionType = type
+                DataHelper.transactionSource = source
+                DataHelper.transactionSourceName = sourceName
                 findNavController().navigate(R.id.action_nav_transaction_to_nav_edit_transaction)
                 (activity as MainActivity).hideBottomNav()
             }
@@ -89,6 +108,16 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
                 ).show()
                 transactionViewModel.resetExceptionValue()
             }
+        }
+
+        transactionViewModel.totalBalance.observe(viewLifecycleOwner) { balance ->
+            binding.tvBalance.text = formatToRupiah(balance)
+        }
+        transactionViewModel.totalIncome.observe(viewLifecycleOwner) { income ->
+            binding.tvIncome.text = formatToRupiah(income)
+        }
+        transactionViewModel.totalExpense.observe(viewLifecycleOwner) { expense ->
+            binding.tvExpense.text = formatToRupiah(expense)
         }
     }
 }

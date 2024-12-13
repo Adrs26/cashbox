@@ -127,38 +127,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_category"/>
 
     <TextView
-        android:id="@+id/tv_wallet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/inter_semi_bold"
-        android:text="Sumber Uang"
-        android:textSize="12sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_category"/>
-
-    <EditText
-        android:id="@+id/edt_wallet"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="2dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="12dp"
-        android:background="@drawable/bg_btn_white"
-        android:drawableEnd="@drawable/ic_choose_wallet"
-        android:drawablePadding="12dp"
-        android:fontFamily="@font/inter_medium"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_wallet"/>
-
-    <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -169,7 +137,7 @@
         android:textSize="12sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_wallet"/>
+        app:layout_constraintTop_toBottomOf="@id/edt_category"/>
 
     <EditText
         android:id="@+id/edt_date"
@@ -212,6 +180,35 @@
 
         <ProgressBar
             android:id="@+id/pb_save"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_delete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_rounded_corner_red"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/btn_save">
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:fontFamily="@font/inter_semi_bold"
+            android:text="Hapus"
+            android:textSize="16sp"
+            android:textColor="@color/white" />
+
+        <ProgressBar
+            android:id="@+id/pb_delete"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"

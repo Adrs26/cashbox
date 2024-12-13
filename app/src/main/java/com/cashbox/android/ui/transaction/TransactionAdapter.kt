@@ -76,12 +76,30 @@ class TransactionAdapter(
             itemBinding.tvSource.text = data.sourceName
 
             itemBinding.root.setOnClickListener {
-                onItemClickListener.onItemClick()
+                onItemClickListener.onItemClick(
+                    data.transactionId,
+                    data.description,
+                    data.amount,
+                    data.category,
+                    data.date,
+                    data.transactionType,
+                    data.source,
+                    data.sourceName
+                )
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(
+            id: Int,
+            description: String,
+            amount: Long,
+            category: Int,
+            date: String,
+            type: String,
+            source: Int,
+            sourceName: String
+        )
     }
 }

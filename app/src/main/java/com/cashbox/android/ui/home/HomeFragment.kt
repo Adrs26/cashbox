@@ -29,7 +29,10 @@ import com.cashbox.android.utils.DataHelper
 import com.cashbox.android.utils.NumberFormatHelper.formatToRupiah
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
@@ -82,6 +85,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             else -> resources.getString(R.string.good_night)
         }
         binding.tvGreeting.text = greetingMessage
+
+        val today = Date()
+        val dateFormat = SimpleDateFormat("MMMM", Locale.getDefault())
+        val currentMonth = dateFormat.format(today)
+        binding.tvTotalIncome.text = resources.getString(
+            R.string.month_income, currentMonth.substring(0, 3)
+        )
+        binding.tvTotalExpense.text = resources.getString(
+            R.string.month_expense, currentMonth.substring(0, 3)
+        )
     }
 
     private fun setupUserData() {
@@ -107,7 +120,24 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun setupAdapter() {
         transactionAdapter = TransactionAdapter(object : TransactionAdapter.OnItemClickListener {
-            override fun onItemClick() {
+            override fun onItemClick(
+                id: Int,
+                description: String,
+                amount: Long,
+                category: Int,
+                date: String,
+                type: String,
+                source: Int,
+                sourceName: String
+            ) {
+                DataHelper.transactionId = id
+                DataHelper.transactionDescription = description
+                DataHelper.transactionAmount = amount
+                DataHelper.transactionCategory = category
+                DataHelper.transactionDate = date
+                DataHelper.transactionType = type
+                DataHelper.transactionSource = source
+                DataHelper.transactionSourceName = sourceName
                 findNavController().navigate(R.id.action_nav_home_to_nav_edit_transaction)
                 (activity as MainActivity).hideBottomNav()
             }
@@ -134,7 +164,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 Pair(token, uid)
             }.collect { (token, uid) ->
                 setupViewModel(token)
+                homeViewModel.getIncomeAndExpenseTotalAmount(uid)
                 homeViewModel.getWalletTotalAmount(uid)
+                homeViewModel.getLastTransaction(uid)
                 homeViewModel.getTopGoals(uid)
                 setupObservers()
             }
@@ -153,6 +185,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun setupObservers() {
         homeViewModel.walletTotalAmount.observe(viewLifecycleOwner) { amount ->
             binding.tvBalance.text = formatToRupiah(amount)
+        }
+
+        homeViewModel.incomeTotalAmount.observe(viewLifecycleOwner) { amount ->
+            binding.tvIncome.text = formatToRupiah(amount)
+        }
+
+        homeViewModel.expenseTotalAmount.observe(viewLifecycleOwner) { amount ->
+            binding.tvExpense.text = formatToRupiah(amount)
+        }
+
+        homeViewModel.lastTransaction.observe(viewLifecycleOwner) { lastTransaction ->
+            transactionAdapter.submitList(lastTransaction)
         }
 
         homeViewModel.topGoals.observe(viewLifecycleOwner) { topGoals ->

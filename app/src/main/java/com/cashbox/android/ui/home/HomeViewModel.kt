@@ -5,11 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cashbox.android.data.model.ListGoals
+import com.cashbox.android.data.model.TransactionData
 import com.cashbox.android.data.repository.GoalsRepository
 import com.cashbox.android.data.repository.TransactionRepository
 import com.cashbox.android.data.repository.WalletRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class HomeViewModel(
     private val walletRepository: WalletRepository,
@@ -17,11 +21,17 @@ class HomeViewModel(
     private val goalsRepository: GoalsRepository
 ) : ViewModel() {
     private val _walletTotalAmount = MutableLiveData<Long>()
+    private val _lastTransaction = MutableLiveData<List<TransactionData>>()
     private val _topGoals = MutableLiveData<List<ListGoals>>()
+    private val _incomeTotalAmount = MutableLiveData<Long>()
+    private val _expenseTotalAmount = MutableLiveData<Long>()
     private val _exception = MutableLiveData<Boolean>()
 
     val walletTotalAmount: LiveData<Long> = _walletTotalAmount
+    val lastTransaction: LiveData<List<TransactionData>> = _lastTransaction
     val topGoals: LiveData<List<ListGoals>> = _topGoals
+    val incomeTotalAmount: LiveData<Long> = _incomeTotalAmount
+    val expenseTotalAmount: LiveData<Long> = _expenseTotalAmount
     val exception: LiveData<Boolean> = _exception
 
     fun getWalletTotalAmount(uid: String) {
@@ -29,6 +39,19 @@ class HomeViewModel(
             try {
                 _walletTotalAmount.postValue(
                     walletRepository.getWallet().data.filter { it.uid == uid}.sumOf { it.amount }
+                )
+                _exception.postValue(false)
+            } catch (e: Exception) {
+                _exception.postValue(true)
+            }
+        }
+    }
+
+    fun getLastTransaction(uid: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _lastTransaction.postValue(
+                    transactionRepository.getAllTransaction().data.filter { it.uid == uid }.take(3)
                 )
                 _exception.postValue(false)
             } catch (e: Exception) {
@@ -56,6 +79,41 @@ class HomeViewModel(
                     )
                 }.take(3)
                 _topGoals.postValue(exGoalsList)
+                _exception.postValue(false)
+            } catch (e: Exception) {
+                _exception.postValue(true)
+            }
+        }
+    }
+
+    fun getIncomeAndExpenseTotalAmount(uid: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val calendar = Calendar.getInstance()
+                val currentMonth = calendar.get(Calendar.MONTH)
+                val currentYear = calendar.get(Calendar.YEAR)
+
+                val allTransactions = transactionRepository.getAllTransaction().data.filter {
+                    it.uid == uid
+                }
+
+                val transactionsThisMonth = allTransactions.filter { item ->
+                    val date = dateFormat.parse(item.date.substring(0, 10))
+                    val itemCalendar = Calendar.getInstance()
+                    itemCalendar.time = date!!
+                    itemCalendar.get(Calendar.MONTH) == currentMonth &&
+                            itemCalendar.get(Calendar.YEAR) == currentYear
+                }
+
+                _incomeTotalAmount.postValue(
+                    transactionsThisMonth.filter { it.transactionType == "pemasukan" }
+                        .sumOf { it.amount }
+                )
+                _expenseTotalAmount.postValue(
+                    transactionsThisMonth.filter { it.transactionType == "pengeluaran" }
+                        .sumOf { it.amount }
+                )
                 _exception.postValue(false)
             } catch (e: Exception) {
                 _exception.postValue(true)

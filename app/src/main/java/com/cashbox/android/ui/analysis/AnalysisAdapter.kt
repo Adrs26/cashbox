@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cashbox.android.data.model.AnalysisData
-import com.cashbox.android.data.model.Example
 import com.cashbox.android.databinding.ItemAnalysisBinding
 import com.cashbox.android.utils.NumberFormatHelper
 import com.cashbox.android.utils.getImageResource

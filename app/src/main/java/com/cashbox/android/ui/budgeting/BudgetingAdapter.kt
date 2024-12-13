@@ -5,22 +5,36 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cashbox.android.databinding.ItemBudgetingBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.cashbox.android.data.model.BudgetingResponse
+import com.cashbox.android.databinding.ItemListBudgetingBinding
+import com.cashbox.android.utils.NumberFormatHelper.formatToRupiah
+import com.cashbox.android.utils.getImageResource
+import com.cashbox.android.utils.toExpenseCategoryText
 
-class BudgetingAdapter : ListAdapter<Int, BudgetingAdapter.ItemViewHolder>(
-    object : DiffUtil.ItemCallback<Int>() {
-        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return oldItem == newItem
+class BudgetingAdapter(
+    private val onItemClickListener: OnItemClickListener
+) : ListAdapter<BudgetingResponse, BudgetingAdapter.ItemViewHolder>(
+    object : DiffUtil.ItemCallback<BudgetingResponse>() {
+        override fun areItemsTheSame(
+            oldItem: BudgetingResponse,
+            newItem: BudgetingResponse
+        ): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
+        override fun areContentsTheSame(
+            oldItem: BudgetingResponse,
+            newItem: BudgetingResponse
+        ): Boolean {
             return oldItem == newItem
         }
     }
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBudgetingBinding.inflate(inflater, parent, false)
+        val binding = ItemListBudgetingBinding.inflate(inflater, parent, false)
         return ItemViewHolder(binding)
     }
 
@@ -28,11 +42,26 @@ class BudgetingAdapter : ListAdapter<Int, BudgetingAdapter.ItemViewHolder>(
         holder.bind(getItem(position))
     }
 
-    class ItemViewHolder(
-        private val itemBinding: ItemBudgetingBinding
+    inner class ItemViewHolder(
+        private val itemBinding: ItemListBudgetingBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(data: Int) {
+        fun bind(data: BudgetingResponse) {
+            Glide.with(itemView)
+                .load(data.category.toExpenseCategoryText().getImageResource())
+                .centerCrop()
+                .transform(CircleCrop())
+                .into(itemBinding.ivCategory)
 
+            itemBinding.tvTitle.text = data.category.toExpenseCategoryText()
+            itemBinding.tvAmountLimit.text = formatToRupiah(data.amount)
+
+            itemBinding.root.setOnClickListener {
+                onItemClickListener.onItemClick(data.ids)
+            }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(ids: MutableList<Int>)
     }
 }

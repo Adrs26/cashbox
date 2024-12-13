@@ -56,6 +56,11 @@
     <string name="to_target_amount">dari %1$s</string>
     <string name="target_difference_day">%1$d hari lagi</string>
     <string name="transaction_not_found">Data transaksi tidak ada</string>
+    <string name="month_income">Pemasukan (%1$s)</string>
+    <string name="month_expense">Pengeluaran (%1$s)</string>
+    <string name="delete_budgeting_confirmation">Anda yakin ingin menghapus kategori budgeting ini?</string>
+    <string name="no">Tidak</string>
+    <string name="yes">Ya</string>
 
     <string-array name="income_categories">
         <item>Gaji</item>

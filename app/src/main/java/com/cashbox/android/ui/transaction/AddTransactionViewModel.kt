@@ -35,8 +35,6 @@ class AddTransactionViewModel(
     val isLoading: LiveData<Boolean> = _isLoading
     val exception: LiveData<Boolean> = _exception
 
-    val message = MutableLiveData<String>()
-
     fun changeTransactionType(transactionType: String) {
         _transactionType.value = transactionType
         updateButtonBackground(transactionType)
@@ -79,7 +77,6 @@ class AddTransactionViewModel(
                 _exception.postValue(false)
             } catch (e: Exception) {
                 _exception.postValue(true)
-                message.postValue(e.toString())
             } finally {
                 _isLoading.postValue(false)
             }
@@ -96,7 +93,6 @@ class AddTransactionViewModel(
                 _exception.postValue(false)
             } catch (e: Exception) {
                 _exception.postValue(true)
-                message.postValue(e.toString())
             } finally {
                 _isLoading.postValue(false)
             }

@@ -1,7 +1,6 @@
 package com.cashbox.android.ui.transaction
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -65,14 +64,12 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
             }
             btnAdd.setOnClickListener {
                 val description = binding.edtDescription.text.toString()
-                val amount = binding.edtAmount.text.toString().toOriginalNumber()
-                val category = binding.edtCategory.text.toString().getNumberId()
+                val amount = binding.edtAmount.text.toString()
+                val category = binding.edtCategory.text.toString()
                 val source = binding.edtWallet.text.toString()
                 val date = DateHelper.convertDateToOriginalValue(binding.edtDate.text.toString())
 
-                if (listOf(description, amount, category, source, date).any {
-                    it.toString().isEmpty()
-                }) {
+                if (listOf(description, amount, category, source, date).any { it.isEmpty() }) {
                     showToast(resources.getString(R.string.data_can_not_be_empty))
                 } else {
                     viewLifecycleOwner.lifecycleScope.launch {
@@ -82,10 +79,10 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
                                     IncomeBody(
                                         it,
                                         description,
-                                        amount,
+                                        amount.toOriginalNumber(),
                                         DataHelper.walletId,
                                         date,
-                                        category,
+                                        category.getNumberId(),
                                         DataHelper.walletName
                                     )
                                 )
@@ -94,10 +91,10 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
                                     ExpenseBody(
                                         it,
                                         description,
-                                        amount,
+                                        amount.toOriginalNumber(),
                                         DataHelper.walletId,
                                         date,
-                                        category,
+                                        category.getNumberId(),
                                         DataHelper.walletName
                                     )
                                 )
@@ -184,9 +181,6 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
                 binding.tvAdd.visibility = View.VISIBLE
                 binding.pbAdd.visibility = View.GONE
             }
-        }
-        addTransactionViewModel.message.observe(viewLifecycleOwner) {
-            showToast(it)
         }
     }
 

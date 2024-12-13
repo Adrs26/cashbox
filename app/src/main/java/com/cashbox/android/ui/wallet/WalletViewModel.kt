@@ -80,6 +80,21 @@ class WalletViewModel(private val walletRepository: WalletRepository): ViewModel
         }
     }
 
+    fun deleteWallet(id: Int) {
+        _isLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val message = walletRepository.deleteWallet(id).message
+                _messageUpdateSuccess.postValue(message)
+                _exception.postValue(false)
+            } catch (e: Exception) {
+                _exception.postValue(true)
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
     fun resetExceptionValue() {
         _exception.value = false
     }

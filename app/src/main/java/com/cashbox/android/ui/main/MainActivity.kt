@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             R.id.nav_money_source,
             R.id.nav_my_account,
             R.id.nav_edit_account,
-            R.id.nav_notifications,
             R.id.nav_wallet,
             R.id.nav_add_wallet,
             R.id.nav_edit_wallet,
@@ -78,7 +77,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             R.id.nav_add_goals,
             R.id.nav_edit_goals,
             R.id.nav_add_save,
-            R.id.nav_edit_save
+            R.id.nav_edit_save,
+            R.id.nav_add_budgeting,
+            R.id.nav_budgeting_categories
         )
     }
 

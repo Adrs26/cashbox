@@ -1,12 +1,17 @@
 package com.cashbox.android.data.api
 
-import com.cashbox.android.data.model.AnalysisData
+import com.cashbox.android.data.model.AccountBody
+import com.cashbox.android.data.model.AccountHeader
 import com.cashbox.android.data.model.AnalysisHeader
+import com.cashbox.android.data.model.BudgetingBody
+import com.cashbox.android.data.model.BudgetingHeader
 import com.cashbox.android.data.model.ExpenseBody
+import com.cashbox.android.data.model.ExpenseData
 import com.cashbox.android.data.model.GoalsBody
 import com.cashbox.android.data.model.GoalsListHeader
 import com.cashbox.android.data.model.GoalsSingleHeader
 import com.cashbox.android.data.model.IncomeBody
+import com.cashbox.android.data.model.IncomeData
 import com.cashbox.android.data.model.LoginBody
 import com.cashbox.android.data.model.LoginGoogleBody
 import com.cashbox.android.data.model.LoginResponse
@@ -55,6 +60,9 @@ interface ApiService {
         @Body walletUpdateBody: WalletUpdateBody
     ): WalletPostResponse
 
+    @DELETE("api/wallet/{id}")
+    suspend fun deleteWallet(@Path("id") id: Int): TransactionResponse
+
     @GET("api/transaksi/transaksi")
     suspend fun getAllTransaction(): TransactionHeader
 
@@ -63,6 +71,24 @@ interface ApiService {
 
     @POST("api/pengeluaran")
     suspend fun addExpenseTransaction(@Body expenseBody: ExpenseBody): TransactionResponse
+
+    @PUT("api/pemasukan/{id_pemasukan}")
+    suspend fun updateIncomeTransactionById(
+        @Path("id_pemasukan") id: Int,
+        @Body incomeData: IncomeData
+    ): TransactionResponse
+
+    @DELETE("api/pemasukan/{id_pemasukan}")
+    suspend fun deleteIncomeTransaction(@Path("id_pemasukan") id: Int): TransactionResponse
+
+    @PUT("api/pengeluaran/{id_pengeluaran}")
+    suspend fun updateExpenseTransactionById(
+        @Path("id_pengeluaran") id: Int,
+        @Body expenseData: ExpenseData
+    ): TransactionResponse
+
+    @DELETE("api/pengeluaran/{id_pengeluaran}")
+    suspend fun deleteExpenseTransaction(@Path("id_pengeluaran") id: Int): TransactionResponse
 
     @GET("api/transaksi/bulan")
     suspend fun getTransactionOnSpecificMonth(
@@ -105,4 +131,19 @@ interface ApiService {
 
     @DELETE("api/tabungan/{id}")
     suspend fun deleteSave(@Path("id") id: Int, @Query("uid") uid: String): TransactionResponse
+
+    @GET("api/user/{uid}")
+    suspend fun getUserData(@Path("uid") uid: String): AccountHeader
+
+    @PUT("api/user")
+    suspend fun updateUserData(@Body accountBody: AccountBody): TransactionResponse
+
+    @POST("api/budgeting")
+    suspend fun addBudgeting(@Body budgetingBody: BudgetingBody)
+
+    @GET("api/budgeting")
+    suspend fun getBudgeting(): BudgetingHeader
+
+    @DELETE("api/budgeting/{id}")
+    suspend fun deleteBudgeting(@Path("id") id: Int): TransactionResponse
 }

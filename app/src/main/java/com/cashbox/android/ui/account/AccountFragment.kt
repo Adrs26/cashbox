@@ -41,14 +41,10 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             }
 
             AnimationHelper.applyTouchAnimation(btnMyAccount)
-            AnimationHelper.applyTouchAnimation(btnNotifications)
             AnimationHelper.applyTouchAnimation(btnLogout)
 
             btnMyAccount.setOnClickListener {
                 findNavController().navigate(R.id.action_nav_account_to_nav_my_account)
-            }
-            btnNotifications.setOnClickListener {
-                findNavController().navigate(R.id.action_nav_account_to_nav_notifications)
             }
             btnLogout.setOnClickListener {
                 viewLifecycleOwner.lifecycleScope.launch {

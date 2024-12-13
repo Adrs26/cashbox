@@ -37,6 +37,9 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
         binding.ibBack.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.deleteWallet.setOnClickListener {
+            setupDataStoreDelete()
+        }
 
         AnimationHelper.applyTouchAnimation(binding.btnSaveWallet)
         binding.btnSaveWallet.setOnClickListener {
@@ -54,6 +57,16 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
             userPreference.userToken.collect {
                 setupViewModel(it)
                 walletViewModel.getWalletById(DataHelper.walletId)
+                setupObservers()
+            }
+        }
+    }
+
+    private fun setupDataStoreDelete() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            userPreference.userToken.collect {
+                setupViewModel(it)
+                walletViewModel.deleteWallet(DataHelper.walletId)
                 setupObservers()
             }
         }

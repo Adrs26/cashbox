@@ -52,7 +52,6 @@
             android:text="Tambah Budgeting"
             android:textColor="@color/white"
             android:textSize="12sp" />
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -75,11 +74,10 @@
             android:id="@+id/btn_auto_budgeting"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/bg_rounded_corner_white"
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btn_save">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 android:id="@+id/tv_auto_budgeting"
@@ -99,35 +97,5 @@
                 android:indeterminateTint="@color/white"
                 android:visibility="gone" />
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_rounded_corner_blue"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/btn_auto_budgeting"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <TextView
-                android:id="@+id/tv_save"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/inter_semi_bold"
-                android:gravity="center"
-                android:text="Simpan"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <ProgressBar
-                android:id="@+id/pb_save"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:indeterminateTint="@color/white"
-                android:visibility="gone" />
-        </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

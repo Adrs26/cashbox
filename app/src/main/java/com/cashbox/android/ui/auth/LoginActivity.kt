@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -139,6 +140,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
             it.getIdToken(true).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val idToken = task.result?.token
+                    Log.i("TOKEN", idToken.toString())
                     loginViewModel.userLoginWithGoogle(LoginGoogleBody(idToken!!))
                 } else {
                     showToast(resources.getString(R.string.get_token_failed))

@@ -31,81 +31,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/tv_period"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/inter_semi_bold"
-            android:text="Periode November 2024"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_title"/>
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/cp_budgeting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:max="100"
-            app:indicatorSize="216dp"
-            app:indicatorColor="@color/blue"
-            app:trackThickness="12dp"
-            app:trackColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_period"/>
-
-        <TextView
-            android:id="@+id/tv_current_budgeting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_semi_bold"
-            android:text="Rp50.000.000"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tv_from"/>
-
-        <TextView
-            android:id="@+id/tv_from"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_semi_bold"
-            android:text="dari"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cp_budgeting"
-            app:layout_constraintBottom_toBottomOf="@id/cp_budgeting"/>
-
-        <TextView
-            android:id="@+id/tv_target_budgeting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_semi_bold"
-            android:text="Rp100.000.000"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_from"/>
-
-        <TextView
             android:id="@+id/tv_budgeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/inter_bold"
-            android:text="Budgeting per Kategori"
-            android:textColor="@color/light_grey"
-            android:textSize="16sp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:text="Prioritas Budgeting per Kategori"
+            android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cp_budgeting"
+            app:layout_constraintTop_toTopOf="@id/btn_add_budgeting"
             app:layout_constraintBottom_toBottomOf="@id/btn_add_budgeting"/>
 
         <ImageView
@@ -115,7 +50,7 @@
             android:layout_marginTop="24dp"
             android:src="@drawable/ic_add_budgeting"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cp_budgeting"/>
+            app:layout_constraintTop_toBottomOf="@id/header_title"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_budgeting"
@@ -123,6 +58,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:nestedScrollingEnabled="false"
-            app:layout_constraintTop_toBottomOf="@id/tv_budgeting" />
+            app:layout_constraintTop_toBottomOf="@id/btn_add_budgeting" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

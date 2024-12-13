@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -43,7 +42,7 @@ class AnalysisFragment : Fragment(R.layout.fragment_analysis) {
         super.onViewCreated(view, savedInstanceState)
         setupButtons()
         setupAdapter()
-        setupDataStore(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR))
+        setupDataStore()
     }
 
     private fun setupButtons() {
@@ -54,15 +53,15 @@ class AnalysisFragment : Fragment(R.layout.fragment_analysis) {
 
         binding.btnThisMonth.setOnClickListener {
             analysisViewModel.changeMenuId(THIS_MONTH)
-            setupDataStore(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR))
+            analysisViewModel.changeMonth(calendar.get(Calendar.MONTH) + 1)
         }
         binding.btnLastMonth.setOnClickListener {
             analysisViewModel.changeMenuId(LAST_SEVEN_DAYS)
-            setupDataStore(calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR))
+            analysisViewModel.changeMonth(calendar.get(Calendar.MONTH))
         }
         binding.btnLastTwoMonth.setOnClickListener {
             analysisViewModel.changeMenuId(LAST_THIRTY_DAYS)
-            setupDataStore(calendar.get(Calendar.MONTH) - 1, calendar.get(Calendar.YEAR))
+            analysisViewModel.changeMonth(calendar.get(Calendar.MONTH) - 1)
         }
     }
 
@@ -112,13 +111,13 @@ class AnalysisFragment : Fragment(R.layout.fragment_analysis) {
         binding.rvAnalysis.adapter = analysisAdapter
     }
 
-    private fun setupDataStore(month: Int, year: Int) {
+    private fun setupDataStore() {
         viewLifecycleOwner.lifecycleScope.launch {
             combine(userPreference.userToken, userPreference.userUid) { token, uid ->
                 Pair(token, uid)
             }.collect { (token, uid) ->
                 setupViewModel(token)
-                analysisViewModel.getTransitionOnSpecificMonth(uid, month, year)
+                analysisViewModel.getInitialTransaction(uid)
                 setupObservers()
             }
         }
@@ -173,9 +172,16 @@ class AnalysisFragment : Fragment(R.layout.fragment_analysis) {
             }
         }
 
+        analysisViewModel.month.observe(viewLifecycleOwner) { month ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                userPreference.userUid.collect {
+                    analysisViewModel.getSpecificTransaction(it, month)
+                }
+            }
+        }
+
         analysisViewModel.exception.observe(viewLifecycleOwner) { exception ->
             if (exception) {
-                showToast(resources.getString(R.string.transaction_not_found))
                 binding.pieChart.visibility = View.INVISIBLE
                 binding.tvTotalExpense.visibility = View.INVISIBLE
                 binding.rvAnalysis.visibility = View.INVISIBLE
@@ -186,10 +192,6 @@ class AnalysisFragment : Fragment(R.layout.fragment_analysis) {
 
     private fun setupButtonBackground(button: TextView, background: Int) {
         button.background = ContextCompat.getDrawable(requireContext(), background)
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

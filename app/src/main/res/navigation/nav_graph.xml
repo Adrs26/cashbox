@@ -48,7 +48,15 @@
     <fragment
         android:id="@+id/nav_budgeting"
         android:name="com.cashbox.android.ui.budgeting.BudgetingFragment"
-        tools:layout="@layout/fragment_budgeting" />
+        tools:layout="@layout/fragment_budgeting" >
+        <action
+            android:id="@+id/action_nav_budgeting_to_nav_add_budgeting"
+            app:destination="@id/nav_add_budgeting"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_transaction"
@@ -75,13 +83,6 @@
         <action
             android:id="@+id/action_nav_account_to_nav_my_account"
             app:destination="@id/nav_my_account"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_nav_account_to_nav_notifications"
-            app:destination="@id/nav_notifications"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -133,11 +134,6 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_notifications"
-        android:name="com.cashbox.android.ui.account.NotificationsFragment"
-        tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/nav_money_source"
@@ -251,4 +247,22 @@
         android:id="@+id/nav_edit_transaction"
         android:name="com.cashbox.android.ui.transaction.EditTransactionFragment"
         tools:layout="@layout/fragment_edit_transaction" />
+
+    <fragment
+        android:id="@+id/nav_add_budgeting"
+        android:name="com.cashbox.android.ui.budgeting.AddBudgetingFragment"
+        tools:layout="@layout/fragment_add_budgeting" >
+        <action
+            android:id="@+id/action_nav_add_budgeting_to_nav_budgeting_categories"
+            app:destination="@id/nav_budgeting_categories"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_budgeting_categories"
+        android:name="com.cashbox.android.ui.budgeting.BudgetingCategoriesFragment"
+        tools:layout="@layout/fragment_transaction_categories" />
 </navigation>
