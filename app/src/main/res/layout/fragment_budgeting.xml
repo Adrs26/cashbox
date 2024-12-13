@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Prioritas Budgeting per Kategori"
+            android:text="@string/budgeting_category_priority"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:src="@drawable/ic_add_budgeting"
+            android:contentDescription="@string/add_budgeting"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_title"/>
 

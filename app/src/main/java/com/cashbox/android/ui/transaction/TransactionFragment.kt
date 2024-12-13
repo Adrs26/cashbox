@@ -3,6 +3,7 @@ package com.cashbox.android.ui.transaction
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +42,17 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         binding.apply {
             searchView.queryHint = "Cari transaksimu"
             searchView.findViewById<View>(androidx.appcompat.R.id.search_plate).background = null
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    transactionAdapter.filter.filter(newText)
+                    return true
+                }
+            })
         }
     }
 
@@ -96,7 +108,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private fun setupObservers() {
         transactionViewModel.transaction.observe(viewLifecycleOwner) { listTransaction ->
-            transactionAdapter.submitList(listTransaction)
+            transactionAdapter.submitFullList(listTransaction)
         }
 
         transactionViewModel.exception.observe(viewLifecycleOwner) { exception ->

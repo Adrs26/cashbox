@@ -2,6 +2,8 @@ package com.cashbox.android.ui.transaction
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -32,7 +34,9 @@ class TransactionAdapter(
             return oldItem == newItem
         }
     }
-) {
+), Filterable {
+    private var fullList = listOf<TransactionData>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemTransactionBinding.inflate(inflater, parent, false)
@@ -41,6 +45,35 @@ class TransactionAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    fun submitFullList(list: List<TransactionData>) {
+        fullList = list
+        submitList(list)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filteredList = if (constraint.isNullOrEmpty()) {
+                    fullList
+                } else {
+                    val filterPattern = constraint.toString().lowercase().trim()
+                    fullList.filter {
+                        it.description.lowercase().contains(filterPattern)
+                    }
+                }
+
+                val results = FilterResults()
+                results.values = filteredList
+                return results
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                submitList(results?.values as List<TransactionData>)
+            }
+        }
     }
 
     inner class ItemViewHolder(

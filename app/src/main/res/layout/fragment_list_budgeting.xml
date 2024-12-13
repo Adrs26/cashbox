@@ -12,6 +12,7 @@
         android:padding="4dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back"
+        android:contentDescription="@string/back_to_previous_menu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/btn_add_budgeting"
         app:layout_constraintBottom_toBottomOf="@id/btn_add_budgeting"/>
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="List Budgeting"
+        android:text="@string/budgeting_list"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_add_budgeting"
@@ -49,7 +50,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semi_bold"
             android:gravity="center"
-            android:text="Tambah Budgeting"
+            android:text="@string/add_budgeting"
             android:textColor="@color/white"
             android:textSize="12sp" />
     </LinearLayout>
@@ -85,7 +86,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/inter_semi_bold"
                 android:gravity="center"
-                android:text="Auto-Budgeting"
+                android:text="@string/auto_budgeting"
                 android:textColor="@color/blue"
                 android:textSize="16sp" />
 

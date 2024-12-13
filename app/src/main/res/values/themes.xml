@@ -4,9 +4,9 @@
     </style>
     
     <style name="SplashScreen" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#94B9FF</item>
+        <item name="windowSplashScreenBackground">@color/white</item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
-        <item name="android:statusBarColor">#94B9FF</item>
+        <item name="android:statusBarColor">@color/white</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.CashBox</item>
     </style>
 

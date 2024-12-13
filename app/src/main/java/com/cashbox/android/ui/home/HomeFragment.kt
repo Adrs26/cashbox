@@ -16,10 +16,12 @@ import com.cashbox.android.R
 import com.cashbox.android.data.api.ApiClientBearer
 import com.cashbox.android.data.datastore.DataStoreInstance
 import com.cashbox.android.data.datastore.UserPreference
+import com.cashbox.android.data.repository.BudgetingRepository
 import com.cashbox.android.data.repository.GoalsRepository
 import com.cashbox.android.data.repository.TransactionRepository
 import com.cashbox.android.data.repository.WalletRepository
 import com.cashbox.android.databinding.FragmentHomeBinding
+import com.cashbox.android.ui.budgeting.BudgetingAdapter
 import com.cashbox.android.ui.goals.GoalsAdapter
 import com.cashbox.android.ui.main.MainActivity
 import com.cashbox.android.ui.transaction.TransactionAdapter
@@ -37,6 +39,7 @@ import java.util.Locale
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var budgetingAdapter: BudgetingAdapter
     private lateinit var transactionAdapter: TransactionAdapter
     private lateinit var goalsAdapter: GoalsAdapter
     private val userPreference by lazy {
@@ -119,6 +122,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setupAdapter() {
+        budgetingAdapter = BudgetingAdapter(object : BudgetingAdapter.OnItemClickListener {
+            override fun onItemClick(ids: MutableList<Int>) {
+                DataHelper.budgetingIds = ids
+            }
+        })
+        binding.rvListBudgeting.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvListBudgeting.adapter = budgetingAdapter
+
         transactionAdapter = TransactionAdapter(object : TransactionAdapter.OnItemClickListener {
             override fun onItemClick(
                 id: Int,
@@ -166,6 +177,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 setupViewModel(token)
                 homeViewModel.getIncomeAndExpenseTotalAmount(uid)
                 homeViewModel.getWalletTotalAmount(uid)
+                homeViewModel.getTopBudgeting(uid)
                 homeViewModel.getLastTransaction(uid)
                 homeViewModel.getTopGoals(uid)
                 setupObservers()
@@ -176,6 +188,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun setupViewModel(token: String) {
         val factory = HomeViewModelFactory(
             WalletRepository(ApiClientBearer.create(token)),
+            BudgetingRepository(ApiClientBearer.create(token)),
             TransactionRepository(ApiClientBearer.create(token)),
             GoalsRepository(ApiClientBearer.create(token))
         )
@@ -193,6 +206,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         homeViewModel.expenseTotalAmount.observe(viewLifecycleOwner) { amount ->
             binding.tvExpense.text = formatToRupiah(amount)
+        }
+
+        homeViewModel.topBudgeting.observe(viewLifecycleOwner) { budgeting ->
+            budgetingAdapter.submitList(budgeting)
         }
 
         homeViewModel.lastTransaction.observe(viewLifecycleOwner) { lastTransaction ->

@@ -25,6 +25,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_account"
+                android:contentDescription="@string/user_profile"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -47,7 +48,6 @@
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginTop="-2dp"
                 android:fontFamily="@font/inter_semi_bold"
-                android:text="User"
                 android:textSize="14sp"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/tv_greeting"
@@ -60,6 +60,7 @@
                 android:layout_height="36dp"
                 android:background="@drawable/bg_circle_white"
                 android:src="@drawable/ic_flag"
+                android:contentDescription="@string/goals"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -82,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_medium"
-                        android:text="Total Saldo Wallet"
+                        android:text="@string/total_wallet_balance"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -105,6 +106,7 @@
                         android:layout_height="48dp"
                         android:background="@drawable/bg_circle_blue"
                         android:src="@drawable/ic_wallet"
+                        android:contentDescription="@string/my_wallet"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
@@ -135,6 +137,7 @@
                         android:padding="8dp"
                         android:background="@drawable/bg_circle_light_blue"
                         android:src="@drawable/ic_arrow_downward"
+                        android:contentDescription="@string/income"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
@@ -191,6 +194,7 @@
                         android:padding="8dp"
                         android:background="@drawable/bg_circle_light_blue"
                         android:src="@drawable/ic_arrow_upward"
+                        android:contentDescription="@string/expense"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
@@ -231,6 +235,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:src="@drawable/ic_budgeting_checked"
+            android:contentDescription="@string/budgeting_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_information"/>
 
@@ -240,7 +245,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/inter_bold"
-            android:text="Saran Budgeting Buat Kamu"
+            android:text="@string/your_budgeting_priority"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/iv_budgeting"
@@ -255,7 +260,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Cek budgeting yang udah disaranin ai buat kamu"
+            android:text="@string/check_your_budgeting"
             android:textColor="@color/black"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -276,6 +281,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:src="@drawable/ic_transaction_checked"
+            android:contentDescription="@string/transaction_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_list_budgeting"/>
 
@@ -285,7 +291,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/inter_bold"
-            android:text="Transaksi Terakhir"
+            android:text="@string/last_transaction"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/iv_transaction"
@@ -300,7 +306,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Cek transaksi terakhir kamu, ada pemasukan atau pengeluaran baru?"
+            android:text="@string/check_your_transaction"
             android:textColor="@color/black"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -322,6 +328,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:src="@drawable/ic_flag"
+            android:contentDescription="@string/goals"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_last_transaction"/>
 
@@ -331,7 +338,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/inter_bold"
-            android:text="Goals-mu"
+            android:text="@string/your_goals"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/iv_goals_tracker"
@@ -346,7 +353,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Ayo nabung buat goals kamu, biar cepat tercapai!"
+            android:text="@string/let_is_save"
             android:textColor="@color/black"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -362,7 +369,7 @@
             android:paddingVertical="2dp"
             android:background="@drawable/bg_rounded_corner_light_blue"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Lihat Detail"
+            android:text="@string/see_detail"
             android:textSize="12sp"
             android:textColor="@color/blue"
             app:layout_constraintStart_toEndOf="@id/tv_goals_tracker"

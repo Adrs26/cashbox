@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
-            android:text="Edit Transaksi"
+            android:text="@string/edit_transaction"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +32,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="4dp"
             android:src="@drawable/ic_close"
+            android:contentDescription="@string/back_to_previous_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -42,7 +44,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="Deskripsi"
+        android:text="@string/description"
         android:textSize="12sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,8 +62,11 @@
         android:textSize="14sp"
         android:textColor="@color/black"
         android:singleLine="true"
+        android:inputType="text"
+        android:autofillHints="Description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_description"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_description"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/tv_amount"
@@ -70,7 +75,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="Nominal"
+        android:text="@string/amount"
         android:textSize="12sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,8 +96,10 @@
         android:textColor="@color/black"
         android:inputType="numberDecimal"
         android:singleLine="true"
+        android:autofillHints="Amount"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_amount"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_amount"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/tv_category"
@@ -101,7 +108,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="Kategori"
+        android:text="@string/category"
         android:textSize="12sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,8 +130,11 @@
         android:textColor="@color/black"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:inputType="text"
+        android:autofillHints="Category"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_category"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_category"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/tv_date"
@@ -133,7 +143,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="Tanggal"
+        android:text="@string/date"
         android:textSize="12sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,8 +165,11 @@
         android:textColor="@color/black"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:inputType="date"
+        android:autofillHints="Date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_date"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_date"
+        tools:ignore="LabelFor" />
 
     <LinearLayout
         android:id="@+id/btn_save"
@@ -174,7 +187,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Perbarui"
+            android:text="@string/update"
             android:textSize="16sp"
             android:textColor="@color/white" />
 
@@ -203,7 +216,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:fontFamily="@font/inter_semi_bold"
-            android:text="Hapus"
+            android:text="@string/delete"
             android:textSize="16sp"
             android:textColor="@color/white" />
 

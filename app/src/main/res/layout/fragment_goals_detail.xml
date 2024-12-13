@@ -13,6 +13,7 @@
         android:padding="4dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back"
+        android:contentDescription="@string/back_to_previous_menu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/ib_delete"
         app:layout_constraintBottom_toBottomOf="@id/ib_delete"/>
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/inter_semi_bold"
-        android:text="Detail Goals"
+        android:text="@string/goals_detail"
         android:textSize="16sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/ib_back"
@@ -38,6 +39,7 @@
         android:padding="4dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_trash_circle"
+        android:contentDescription="@string/delete_goals"
         app:layout_constraintEnd_toStartOf="@id/ib_edit"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -50,6 +52,7 @@
         android:padding="4dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_pen_circle"
+        android:contentDescription="@string/edit_goals"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -71,6 +74,7 @@
                 android:layout_height="96dp"
                 android:layout_marginTop="12dp"
                 android:src="@drawable/ic_bg_logo"
+                android:contentDescription="@string/cashbox_application_logo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -81,11 +85,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="Liburan ke Bali"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textAlignment="center"
-                app:layout_constraintTop_toBottomOf="@id/iv_goals"/>
+                app:layout_constraintTop_toBottomOf="@id/iv_goals"
+                tools:text="Liburan"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container_progress"
@@ -112,11 +116,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/inter_bold"
-                    android:text="50"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pb_goals"/>
+                    app:layout_constraintTop_toBottomOf="@id/pb_goals"
+                    tools:text="50"/>
 
                 <TextView
                     android:id="@+id/tv_percentage"
@@ -125,7 +129,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/inter_bold"
-                    android:text="%"
+                    android:text="@string/percentage"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/tv_goals_percentage"
@@ -135,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Tercapai"
+                    android:text="@string/achieved"
                     android:textColor="@color/black"
                     android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -147,22 +151,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/inter_bold"
-                    android:text="Rp50.000.000"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pb_goals"/>
+                    app:layout_constraintTop_toBottomOf="@id/pb_goals"
+                    tools:text="Rp50.000.000"/>
 
                 <TextView
                     android:id="@+id/tv_goals_amount_rest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="dari Rp100.000.000"
                     android:textColor="@color/black"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_goals_amount_progress"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_goals_amount_progress"
+                    tools:text="dari Rp100.000.000"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -183,19 +187,19 @@
                     android:paddingVertical="2dp"
                     android:background="@drawable/bg_rounded_corner_light_blue"
                     android:fontFamily="@font/inter_semi_bold"
-                    android:text="29 hari lagi"
                     android:textSize="12sp"
                     android:textColor="@color/blue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="30 hari lagi"/>
 
                 <TextView
                     android:id="@+id/tv_goals_estimated"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Perkiraan Goals Tercapai"
+                    android:text="@string/estimated_goals_achieved"
                     android:textColor="@color/black"
                     android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -207,12 +211,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
-                    android:text="25 Desember 2024"
                     android:textColor="@color/blue"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_goals_estimated"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="25 Desember 2024"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -230,7 +234,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Nominal yang Belum Tercapai"
+                    android:text="@string/rest_amount"
                     android:textColor="@color/black"
                     android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -242,18 +246,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
-                    android:text="Rp50.000.000"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_rest_amount"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="Rp50.000.000"/>
 
                 <ImageView
                     android:id="@+id/btn_add_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_let_is_save"
+                    android:contentDescription="@string/add_save"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
@@ -266,7 +271,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/inter_semi_bold"
-                android:text="Riwayat Menabung Menuju Goals"
+                android:text="@string/save_history"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"

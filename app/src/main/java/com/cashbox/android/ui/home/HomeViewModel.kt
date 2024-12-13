@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cashbox.android.data.model.BudgetingResponse
 import com.cashbox.android.data.model.ListGoals
 import com.cashbox.android.data.model.TransactionData
+import com.cashbox.android.data.repository.BudgetingRepository
 import com.cashbox.android.data.repository.GoalsRepository
 import com.cashbox.android.data.repository.TransactionRepository
 import com.cashbox.android.data.repository.WalletRepository
@@ -17,10 +19,12 @@ import java.util.Locale
 
 class HomeViewModel(
     private val walletRepository: WalletRepository,
+    private val budgetingRepository: BudgetingRepository,
     private val transactionRepository: TransactionRepository,
     private val goalsRepository: GoalsRepository
 ) : ViewModel() {
     private val _walletTotalAmount = MutableLiveData<Long>()
+    private val _topBudgeting = MutableLiveData<List<BudgetingResponse>>()
     private val _lastTransaction = MutableLiveData<List<TransactionData>>()
     private val _topGoals = MutableLiveData<List<ListGoals>>()
     private val _incomeTotalAmount = MutableLiveData<Long>()
@@ -28,6 +32,7 @@ class HomeViewModel(
     private val _exception = MutableLiveData<Boolean>()
 
     val walletTotalAmount: LiveData<Long> = _walletTotalAmount
+    val topBudgeting: LiveData<List<BudgetingResponse>> = _topBudgeting
     val lastTransaction: LiveData<List<TransactionData>> = _lastTransaction
     val topGoals: LiveData<List<ListGoals>> = _topGoals
     val incomeTotalAmount: LiveData<Long> = _incomeTotalAmount
@@ -40,6 +45,44 @@ class HomeViewModel(
                 _walletTotalAmount.postValue(
                     walletRepository.getWallet().data.filter { it.uid == uid}.sumOf { it.amount }
                 )
+                _exception.postValue(false)
+            } catch (e: Exception) {
+                _exception.postValue(true)
+            }
+        }
+    }
+
+    fun getTopBudgeting(uid: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val result = budgetingRepository.getBudgeting().data
+                    .filter { it.uid == uid }
+                    .fold(mutableListOf<BudgetingResponse>()) { result, current ->
+                        val existing = result.find { it.category == current.category }
+
+                        if (existing != null) {
+                            existing.amount += current.amount
+                            existing.urgency += current.urgency
+
+                            if (!existing.ids.contains(current.id)) {
+                                existing.ids.add(current.id)
+                            }
+                        } else {
+                            result.add(
+                                BudgetingResponse(
+                                    id = current.id,
+                                    uid = current.uid,
+                                    category = current.category,
+                                    amount = current.amount,
+                                    urgency = current.urgency,
+                                    ids = mutableListOf(current.id)
+                                )
+                            )
+                        }
+                        result
+                    }.sortedByDescending { it.urgency }.take(3)
+
+                _topBudgeting.postValue(result)
                 _exception.postValue(false)
             } catch (e: Exception) {
                 _exception.postValue(true)
